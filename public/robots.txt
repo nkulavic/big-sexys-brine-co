@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://bigsexysbrineco.com
+
+# Sitemaps
+Sitemap: https://bigsexysbrineco.com/sitemap.xml

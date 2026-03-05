@@ -1,0 +1,31 @@
+[
+  {
+    "id": 1,
+    "quote": "Best spicy jars I've ever had. The perfect crunch and the heat builds just right. I'm hooked!",
+    "author": "Mike R.",
+    "product": "Spicy Variety"
+  },
+  {
+    "id": 2,
+    "quote": "The Cowboy Candy is dangerously addictive. I put it on everything - burgers, eggs, cream cheese. Can't stop.",
+    "author": "Sarah T.",
+    "product": "Cowboy Candy"
+  },
+  {
+    "id": 3,
+    "quote": "I bought the garlic at a farmers market on a whim. Now I drive across town to get more. Life-changing.",
+    "author": "Carlos M.",
+    "product": "Brined Garlic"
+  },
+  {
+    "id": 4,
+    "quote": "Jesse's passion shows in every jar. You can taste the quality and care. Supporting this brand is a no-brainer.",
+    "author": "Denver Dave"
+  },
+  {
+    "id": 5,
+    "quote": "The Shoyu Garlic blew my mind. I've never tasted anything like it. Umami perfection.",
+    "author": "Kim L.",
+    "product": "Shoyu Garlic"
+  }
+]
