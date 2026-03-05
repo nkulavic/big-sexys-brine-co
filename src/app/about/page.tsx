@@ -98,34 +98,20 @@ export default function AboutPage() {
             </div>
 
             <div className="lg:col-span-2 space-y-6">
-              <div className="sticky top-28 space-y-6">
-                <div className="flex justify-center">
-                  <div className="relative">
-                    <div className="absolute -inset-4 bg-brand-orange/15 rounded-full blur-2xl" />
-                    <Image
-                      src="/images/logo/logo-transparent.png"
-                      alt="Big Sexy's Brine Co."
-                      width={200}
-                      height={200}
-                      className="relative drop-shadow-2xl"
-                    />
-                  </div>
-                </div>
-                <div className="aspect-[3/4] relative rounded-2xl overflow-hidden border border-brand-brown/30">
-                  <Image
-                    src="/images/gallery/jesse-with-jars.jpg"
-                    alt="Jesse Thompson - Big Sexy"
-                    fill
-                    className="object-cover"
-                  />
-                  <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-black/80 to-transparent p-6">
-                    <p className="font-display text-xl font-bold text-brand-cream">
-                      Jesse Thompson
-                    </p>
-                    <p className="text-brand-cream/60 text-sm">
-                      Founder & Head Briner
-                    </p>
-                  </div>
+              <div className="aspect-[3/4] relative rounded-2xl overflow-hidden border border-brand-brown/30 sticky top-28">
+                <Image
+                  src="/images/gallery/jesse-with-jars.jpg"
+                  alt="Jesse Thompson - Big Sexy"
+                  fill
+                  className="object-cover"
+                />
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-black/80 to-transparent p-6">
+                  <p className="font-display text-xl font-bold text-brand-cream">
+                    Jesse Thompson
+                  </p>
+                  <p className="text-brand-cream/60 text-sm">
+                    Founder & Head Briner
+                  </p>
                 </div>
               </div>
             </div>

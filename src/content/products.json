@@ -110,7 +110,8 @@
     "ingredients": ["Carrots", "Jalapenos", "White Vinegar", "Water", "Pickling Salt", "Onion", "Garlic", "Oregano", "Bay Leaf", "Calcium Chloride"],
     "heat": 2,
     "category": "Traditional",
-    "image": "/images/products/escabeche.jpg"
+    "image": "/images/products/escabeche.jpg",
+    "featured": true
   },
   {
     "id": 10,
