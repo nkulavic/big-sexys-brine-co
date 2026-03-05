@@ -10,11 +10,11 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/s
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/products", label: "Products" },
-  { href: "/about", label: "About" },
-  { href: "/events", label: "Events" },
-  { href: "/learn-to-preserve", label: "Learn to Preserve" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/products", label: "The Lineup" },
+  { href: "/about", label: "The Story" },
+  { href: "/events", label: "Find Us" },
+  { href: "/learn-to-preserve", label: "Take a Class" },
+  { href: "/gallery", label: "Behind the Jars" },
 ];
 
 export function Header() {
@@ -69,7 +69,7 @@ export function Header() {
               href="/contact"
               className="inline-flex items-center px-5 py-2.5 bg-brand-orange text-white text-sm font-semibold rounded-full hover:bg-brand-orange/90 transition-colors"
             >
-              Get in Touch
+              Say Hello
             </Link>
           </div>
 
@@ -116,7 +116,7 @@ export function Header() {
                     onClick={() => setOpen(false)}
                     className="flex items-center justify-center w-full px-5 py-3 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-colors"
                   >
-                    Get in Touch
+                    Say Hello
                   </Link>
                 </div>
               </div>

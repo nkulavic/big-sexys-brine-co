@@ -6,12 +6,12 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact",
+  title: "Say Hello",
   description:
     "Get in touch with Big Sexy's Brine Co. for orders, wholesale inquiries, event bookings, or just to say hello. Wheat Ridge, CO.",
   openGraph: {
-    title: "Contact | Big Sexy's Brine Co.",
-    description: "Get in touch for orders, wholesale inquiries, event bookings, or just to say hello.",
+    title: "Say Hello | Big Sexy's Brine Co.",
+    description: "Orders, wholesale, events, or just want to talk about jars — we'd love to hear from you.",
     images: [{ url: "/images/logo/logo-transparent.png" }],
   },
 };
@@ -22,14 +22,14 @@ export default function ContactPage() {
       <Container>
         <div className="text-center mb-12">
           <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 mb-4">
-            Get in Touch
+            We&apos;d Love to Hear From You
           </Badge>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
-            Contact Us
+            Say Hello
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Have a question, want to place a custom order, or just want to say
-            hello? We&apos;d love to hear from you.
+            Questions, custom orders, wholesale, or just want to talk about
+            jars — drop us a line.
           </p>
         </div>
 

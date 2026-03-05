@@ -5,12 +5,12 @@ import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Products",
+  title: "The Lineup",
   description:
-    "Explore our full lineup of 18 small-batch artisan preserved foods. From spicy varieties to sweet heat cowboy candy, garlic specialties, and more.",
+    "18 handcrafted varieties of bold, brined goodness. From spicy to sweet heat, garlic obsessions to traditional escabeche — find your new favorite jar.",
   openGraph: {
-    title: "Products | Big Sexy's Brine Co.",
-    description: "Explore our full lineup of 18 small-batch artisan preserved foods.",
+    title: "The Lineup | Big Sexy's Brine Co.",
+    description: "18 handcrafted varieties of bold, brined goodness. Find your new favorite jar.",
     images: [{ url: "/images/gallery/jar-lineup.jpg" }],
   },
 };
@@ -23,14 +23,14 @@ export default function ProductsPage() {
       <Container>
         <div className="text-center mb-12">
           <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 mb-4">
-            18 Varieties
+            18 Varieties &amp; Counting
           </Badge>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
-            Our Products
+            The Lineup
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Every jar is handcrafted in small batches using the freshest
-            ingredients. Bold flavors, no shortcuts.
+            Every jar is handcrafted in small batches. No shortcuts, no filler —
+            just bold flavors and the freshest ingredients we can get our hands on.
           </p>
         </div>
         <ProductGrid products={products} />

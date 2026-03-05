@@ -8,12 +8,12 @@ import { CourseJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Learn to Preserve",
+  title: "Take a Class",
   description:
-    "Join Big Sexy's hands-on preservation workshop. Learn the art and science of brining in a 4-hour class. $125 per person. Wheat Ridge, CO.",
+    "Learn the art of brining hands-on with Big Sexy himself. 4-hour workshop, $125 per person, all skill levels welcome. Wheat Ridge, CO.",
   openGraph: {
-    title: "Learn to Preserve | Big Sexy's Brine Co.",
-    description: "Join a hands-on preservation workshop. 4-hour class, $125 per person. All skill levels welcome.",
+    title: "Take a Class | Big Sexy's Brine Co.",
+    description: "Learn the art of brining hands-on with Big Sexy. 4-hour workshop, $125/person. All skill levels.",
     images: [{ url: "/images/logo/logo-transparent.png" }],
   },
 };
@@ -29,7 +29,7 @@ export default function LearnToPreservePage() {
         {/* Hero */}
         <div className="text-center max-w-3xl mx-auto mb-16">
           <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20 mb-4">
-            Workshop
+            Hands-On Workshop
           </Badge>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
             {classInfo.title}

@@ -5,11 +5,12 @@ import { Instagram, Mail, MapPin } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const footerLinks = [
-  { href: "/products", label: "Products" },
-  { href: "/about", label: "About" },
-  { href: "/events", label: "Events" },
-  { href: "/learn-to-preserve", label: "Learn to Preserve" },
-  { href: "/gallery", label: "Gallery" },
+  { href: "/products", label: "The Lineup" },
+  { href: "/about", label: "The Story" },
+  { href: "/events", label: "Find Us" },
+  { href: "/learn-to-preserve", label: "Take a Class" },
+  { href: "/gallery", label: "Behind the Jars" },
+  { href: "/contact", label: "Say Hello" },
 ];
 
 export function Footer() {
@@ -42,7 +43,7 @@ export function Footer() {
           {/* Navigation */}
           <div>
             <h4 className="font-display text-lg font-semibold text-brand-cream mb-4">
-              Navigate
+              Explore
             </h4>
             <ul className="space-y-2">
               {footerLinks.map((link) => (

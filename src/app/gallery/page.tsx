@@ -4,12 +4,12 @@ import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Gallery",
+  title: "Behind the Jars",
   description:
-    "Photos from Big Sexy's Brine Co. - our products, events, markets, and behind-the-scenes moments.",
+    "The real deal — behind-the-scenes photos from Big Sexy's Brine Co. Markets, kitchen prep, process shots, and the jars that started it all.",
   openGraph: {
-    title: "Gallery | Big Sexy's Brine Co.",
-    description: "Photos from Big Sexy's Brine Co. - products, events, markets, and behind-the-scenes moments.",
+    title: "Behind the Jars | Big Sexy's Brine Co.",
+    description: "Behind-the-scenes photos from Big Sexy's Brine Co. Markets, kitchen prep, and the jars themselves.",
     images: [{ url: "/images/gallery/jar-lineup.jpg" }],
   },
 };
@@ -32,14 +32,14 @@ export default function GalleryPage() {
       <Container>
         <div className="text-center mb-12">
           <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
-            Photos
+            The Real Deal
           </Badge>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
-            Gallery
+            Behind the Jars
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Snapshots from markets, events, and behind the scenes at Big
-            Sexy&apos;s Brine Co.
+            Markets, kitchen prep, the brining process, and the jars
+            themselves. This is what it looks like behind the scenes.
           </p>
         </div>
 

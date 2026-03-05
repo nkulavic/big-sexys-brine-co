@@ -8,12 +8,12 @@ import { EventJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Events",
+  title: "Find Us",
   description:
-    "Find Big Sexy's Brine Co. at farmers markets, festivals, and pop-ups across the Denver metro area. See our upcoming schedule.",
+    "Find Big Sexy's Brine Co. at farmers markets, festivals, and pop-ups across the Denver metro area. Come say hi and grab a jar.",
   openGraph: {
-    title: "Events | Big Sexy's Brine Co.",
-    description: "Find Big Sexy's Brine Co. at farmers markets, festivals, and pop-ups across the Denver metro area.",
+    title: "Find Us | Big Sexy's Brine Co.",
+    description: "Find Big Sexy's at farmers markets, festivals, and pop-ups across Denver. Come say hi and grab a jar.",
     images: [{ url: "/images/logo/logo-transparent.png" }],
   },
 };
@@ -31,14 +31,14 @@ export default function EventsPage() {
         <Container>
           <div className="text-center mb-12">
             <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
-              Markets & Festivals
+              Markets &amp; Festivals
             </Badge>
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
-            Events
+            Find Us
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Catch Big Sexy at farmers markets, festivals, and events across
-            Colorado. Sample before you buy and meet the maker.
+            Come say hi, try some samples, and take home a jar. We&apos;re at
+            markets and festivals across Colorado — here&apos;s where to catch us.
           </p>
         </div>
 

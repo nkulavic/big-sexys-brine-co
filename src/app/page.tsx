@@ -45,14 +45,14 @@ export default function HomePage() {
                 href="/products"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-all hover:scale-105 text-lg"
               >
-                Explore Products
+                See the Lineup
                 <ArrowRight size={20} />
               </Link>
               <Link
                 href="/about"
                 className="inline-flex items-center gap-2 px-8 py-4 border-2 border-brand-cream/30 text-brand-cream font-semibold rounded-full hover:border-brand-orange hover:text-brand-orange transition-all text-lg"
               >
-                Our Story
+                The Story
               </Link>
             </div>
           </div>
@@ -64,14 +64,14 @@ export default function HomePage() {
         <Container>
           <div className="text-center mb-12">
             <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 mb-4">
-              Featured Products
+              The Lineup
             </Badge>
             <h2 className="font-display text-4xl sm:text-5xl font-bold text-brand-cream">
-              Fan Favorites
+              Grab a Jar
             </h2>
             <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto">
-              Our most popular jars — each one handcrafted with the freshest
-              ingredients and Big Sexy&apos;s signature spice blends.
+              The ones people keep coming back for. Handcrafted, small-batch, and
+              packed with Big Sexy&apos;s signature flavor.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -84,7 +84,7 @@ export default function HomePage() {
               href="/products"
               className="inline-flex items-center gap-2 text-brand-orange hover:text-brand-gold font-semibold transition-colors"
             >
-              View All 18 Varieties
+              See All 18 Varieties
               <ArrowRight size={18} />
             </Link>
           </div>
@@ -97,7 +97,7 @@ export default function HomePage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div className="space-y-6">
               <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20">
-                Our Story
+                The Story
               </Badge>
               <h2 className="font-display text-4xl sm:text-5xl font-bold text-brand-cream leading-tight">
                 Born from Resilience,{" "}
@@ -144,10 +144,10 @@ export default function HomePage() {
         <Container>
           <div className="text-center mb-12">
             <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20 mb-4">
-              Testimonials
+              Real People. Real Flavor.
             </Badge>
             <h2 className="font-display text-4xl font-bold text-brand-cream">
-              What People Are Saying
+              Word on the Street
             </h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -180,13 +180,13 @@ export default function HomePage() {
           <Container>
             <div className="text-center mb-12">
               <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
-                Events
+                Markets & Festivals
               </Badge>
               <h2 className="font-display text-4xl font-bold text-brand-cream">
-                Find Us Out There
+                Catch Us Live
               </h2>
               <p className="mt-4 text-brand-cream/60 max-w-xl mx-auto">
-                Catch Big Sexy at markets and festivals across the Denver metro area.
+                Come say hi, grab some samples, and take home a jar (or five).
               </p>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -232,7 +232,7 @@ export default function HomePage() {
                 href="/events"
                 className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-orange font-semibold transition-colors"
               >
-                View All Events
+                See Where We&apos;ll Be
                 <ArrowRight size={18} />
               </Link>
             </div>
@@ -249,8 +249,8 @@ export default function HomePage() {
               Follow the Journey
             </h2>
             <p className="text-brand-cream/60 max-w-xl">
-              Follow @bigsexysbrineco on Instagram for behind-the-scenes looks,
-              new product drops, market schedules, and more.
+              Behind-the-scenes looks, new drops, market schedules, and the
+              occasional jar-related dad joke. Come hang.
             </p>
             <a
               href="https://www.instagram.com/bigsexysbrineco"

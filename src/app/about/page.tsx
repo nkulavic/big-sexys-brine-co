@@ -7,11 +7,11 @@ import { ArrowRight, Heart, Flame, Users } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "About",
+  title: "The Story",
   description:
     "The story behind Big Sexy's Brine Co. Born from resilience, recovery, and a damn good recipe. Meet Jesse Thompson, the man behind the brine.",
   openGraph: {
-    title: "About | Big Sexy's Brine Co.",
+    title: "The Story | Big Sexy's Brine Co.",
     description: "Born from resilience, recovery, and a damn good recipe. Meet Jesse Thompson, the man behind the brine.",
     images: [{ url: "/images/gallery/jesse-with-jars.jpg" }],
   },
@@ -46,10 +46,10 @@ export default function AboutPage() {
         <Container>
           <div className="text-center max-w-3xl mx-auto">
             <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
-              Our Story
+              The Man Behind the Brine
             </Badge>
             <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
-              Big Sexy&apos;s Story
+              The Story
             </h1>
           </div>
         </Container>
