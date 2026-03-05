@@ -1,5 +1,3 @@
-"use client";
-
 import Link from "next/link";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
@@ -17,7 +15,7 @@ export function ProductCard({ product, className }: ProductCardProps) {
     <Link
       href={`/products/${product.slug}`}
       className={cn(
-        "group block bg-card rounded-xl border border-brand-brown/20 overflow-hidden hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl hover:shadow-brand-orange/5",
+        "group block bg-card rounded-xl border border-brand-brown/20 overflow-hidden hover:border-brand-orange/50 transition-all duration-300 hover:shadow-xl hover:shadow-brand-orange/5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-black",
         className
       )}
     >

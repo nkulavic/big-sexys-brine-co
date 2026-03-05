@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
-import { Send, CheckCircle, AlertCircle } from "lucide-react";
+import { Send, CheckCircle, AlertCircle, Loader2 } from "lucide-react";
 
 const contactSchema = z.object({
   name: z.string().min(2, "Name must be at least 2 characters"),
@@ -137,7 +137,7 @@ export function ContactForm({ defaultSubject = "General Inquiry" }: ContactFormP
           <option value="General Inquiry">General Inquiry</option>
           <option value="Custom Order">Custom Order</option>
           <option value="Wholesale">Wholesale Inquiry</option>
-          <option value="class">Book a Class</option>
+          <option value="Book a Class">Book a Class</option>
           <option value="Event">Event / Market Inquiry</option>
           <option value="Other">Other</option>
         </select>
@@ -176,7 +176,10 @@ export function ContactForm({ defaultSubject = "General Inquiry" }: ContactFormP
         className="inline-flex items-center gap-2 w-full justify-center px-6 py-3 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
       >
         {status === "sending" ? (
-          "Sending..."
+          <>
+            <Loader2 size={18} className="animate-spin" />
+            Sending...
+          </>
         ) : (
           <>
             <Send size={18} />

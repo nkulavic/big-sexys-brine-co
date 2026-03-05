@@ -39,16 +39,3 @@ export interface Testimonial {
   author: string;
   product?: string;
 }
-
-export interface RecipeFrontmatter {
-  title: string;
-  slug: string;
-  description: string;
-  date: string;
-  image?: string;
-  prepTime?: string;
-  cookTime?: string;
-  servings?: string;
-  difficulty?: "Easy" | "Medium" | "Hard";
-  tags?: string[];
-}

@@ -4,18 +4,26 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Check, BookOpen, Clock, Users, DollarSign } from "lucide-react";
 import Link from "next/link";
+import { CourseJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Learn to Preserve",
   description:
     "Join Big Sexy's hands-on preservation workshop. Learn the art and science of brining in a 4-hour class. $125 per person. Wheat Ridge, CO.",
+  openGraph: {
+    title: "Learn to Preserve | Big Sexy's Brine Co.",
+    description: "Join a hands-on preservation workshop. 4-hour class, $125 per person. All skill levels welcome.",
+    images: [{ url: "/images/logo/logo-transparent.png" }],
+  },
 };
 
 export default function LearnToPreservePage() {
   const classInfo = getClassInfo();
 
   return (
+    <>
+    <CourseJsonLd />
     <section className="pt-28 pb-24">
       <Container>
         {/* Hero */}
@@ -23,7 +31,7 @@ export default function LearnToPreservePage() {
           <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20 mb-4">
             Workshop
           </Badge>
-          <h1 className="font-display text-5xl sm:text-6xl font-bold text-brand-cream">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
             {classInfo.title}
           </h1>
           <p className="mt-4 text-brand-cream/60 text-lg leading-relaxed">
@@ -129,5 +137,6 @@ export default function LearnToPreservePage() {
         </div>
       </Container>
     </section>
+    </>
   );
 }

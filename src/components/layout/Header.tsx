@@ -15,7 +15,6 @@ const navLinks = [
   { href: "/events", label: "Events" },
   { href: "/learn-to-preserve", label: "Learn to Preserve" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function Header() {
@@ -45,7 +44,6 @@ export function Header() {
               alt="Big Sexy's Brine Co."
               width={50}
               height={50}
-              className=""
               priority
             />
             <span className="font-display text-xl font-bold text-brand-cream hidden sm:block">
@@ -97,7 +95,6 @@ export function Header() {
                     alt="Big Sexy's Brine Co."
                     width={40}
                     height={40}
-                    className=""
                   />
                   <span className="font-display text-lg font-bold text-brand-cream">
                     Big Sexy&apos;s Brine Co.

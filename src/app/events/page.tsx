@@ -4,12 +4,18 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, MapPin, Clock } from "lucide-react";
 import Link from "next/link";
+import { EventJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Events",
   description:
     "Find Big Sexy's Brine Co. at farmers markets, festivals, and pop-ups across the Denver metro area. See our upcoming schedule.",
+  openGraph: {
+    title: "Events | Big Sexy's Brine Co.",
+    description: "Find Big Sexy's Brine Co. at farmers markets, festivals, and pop-ups across the Denver metro area.",
+    images: [{ url: "/images/logo/logo-transparent.png" }],
+  },
 };
 
 export default function EventsPage() {
@@ -17,13 +23,17 @@ export default function EventsPage() {
   const past = getPastEvents();
 
   return (
-    <section className="pt-28 pb-24">
-      <Container>
-        <div className="text-center mb-12">
-          <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
-            Markets & Festivals
-          </Badge>
-          <h1 className="font-display text-5xl sm:text-6xl font-bold text-brand-cream">
+    <>
+      {upcoming.map((event) => (
+        <EventJsonLd key={event.id} event={event} />
+      ))}
+      <section className="pt-28 pb-24">
+        <Container>
+          <div className="text-center mb-12">
+            <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
+              Markets & Festivals
+            </Badge>
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
             Events
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
@@ -169,5 +179,6 @@ export default function EventsPage() {
         </div>
       </Container>
     </section>
+    </>
   );
 }

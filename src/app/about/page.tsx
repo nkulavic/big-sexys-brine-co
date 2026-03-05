@@ -10,6 +10,11 @@ export const metadata: Metadata = {
   title: "About",
   description:
     "The story behind Big Sexy's Brine Co. Born from resilience, recovery, and a damn good recipe. Meet Jesse Thompson, the man behind the brine.",
+  openGraph: {
+    title: "About | Big Sexy's Brine Co.",
+    description: "Born from resilience, recovery, and a damn good recipe. Meet Jesse Thompson, the man behind the brine.",
+    images: [{ url: "/images/gallery/jesse-with-jars.jpg" }],
+  },
 };
 
 const values = [
@@ -43,7 +48,7 @@ export default function AboutPage() {
             <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20 mb-4">
               Our Story
             </Badge>
-            <h1 className="font-display text-5xl sm:text-6xl font-bold text-brand-cream">
+            <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
               Big Sexy&apos;s Story
             </h1>
           </div>

@@ -31,7 +31,7 @@ export default function HomePage() {
               />
             </div>
             <div className="space-y-4 max-w-3xl">
-              <h1 className="font-display text-5xl sm:text-6xl md:text-7xl font-bold text-brand-cream leading-tight">
+              <h1 className="font-display text-4xl sm:text-5xl md:text-7xl font-bold text-brand-cream leading-tight">
                 Brined to{" "}
                 <span className="text-gradient">Perfection</span>
               </h1>

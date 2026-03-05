@@ -10,7 +10,6 @@ const footerLinks = [
   { href: "/events", label: "Events" },
   { href: "/learn-to-preserve", label: "Learn to Preserve" },
   { href: "/gallery", label: "Gallery" },
-  { href: "/contact", label: "Contact" },
 ];
 
 export function Footer() {
@@ -26,7 +25,6 @@ export function Footer() {
                 alt="Big Sexy's Brine Co."
                 width={50}
                 height={50}
-                className=""
               />
               <div>
                 <h3 className="font-display text-xl font-bold text-brand-cream">

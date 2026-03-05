@@ -10,11 +10,11 @@ interface HeatIndicatorProps {
 
 export function HeatIndicator({ level, max = 5, size = 16, className }: HeatIndicatorProps) {
   if (level === 0) {
-    return <span className={cn("text-xs text-brand-cream/50 font-medium", className)}>No Heat</span>;
+    return <span className={cn("text-xs text-brand-cream/50 font-medium", className)} aria-label="No heat">No Heat</span>;
   }
 
   return (
-    <div className={cn("flex items-center gap-0.5", className)} title={`Heat level: ${level}/${max}`}>
+    <div className={cn("flex items-center gap-0.5", className)} title={`Heat level: ${level}/${max}`} role="img" aria-label={`Heat level: ${level} out of ${max}`}>
       {Array.from({ length: max }).map((_, i) => (
         <Flame
           key={i}

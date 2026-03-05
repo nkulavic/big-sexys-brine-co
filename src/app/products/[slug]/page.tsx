@@ -3,6 +3,7 @@ import { HeatIndicator } from "@/components/products/HeatIndicator";
 import { getProducts, getProductBySlug } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
+import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -29,6 +30,7 @@ export function generateMetadata({
       openGraph: {
         title: `${product.name} | Big Sexy's Brine Co.`,
         description: product.description,
+        images: [{ url: product.image }],
       },
     };
   });
@@ -51,15 +53,22 @@ export default async function ProductDetailPage({
     currentIndex < allProducts.length - 1 ? allProducts[currentIndex + 1] : null;
 
   return (
-    <section className="pt-28 pb-24">
-      <Container>
-        <Link
-          href="/products"
-          className="inline-flex items-center gap-2 text-brand-cream/60 hover:text-brand-orange transition-colors mb-8"
-        >
-          <ArrowLeft size={16} />
-          Back to Products
-        </Link>
+    <>
+      <ProductJsonLd product={product} />
+      <BreadcrumbJsonLd items={[
+        { name: "Home", href: "/" },
+        { name: "Products", href: "/products" },
+        { name: product.name, href: `/products/${product.slug}` },
+      ]} />
+      <section className="pt-28 pb-24">
+        <Container>
+          <Link
+            href="/products"
+            className="inline-flex items-center gap-2 text-brand-cream/60 hover:text-brand-orange transition-colors mb-8"
+          >
+            <ArrowLeft size={16} />
+            Back to Products
+          </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Image */}
@@ -182,5 +191,6 @@ export default async function ProductDetailPage({
         </div>
       </Container>
     </section>
+    </>
   );
 }

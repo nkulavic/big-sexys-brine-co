@@ -9,6 +9,11 @@ export const metadata: Metadata = {
   title: "Contact",
   description:
     "Get in touch with Big Sexy's Brine Co. for orders, wholesale inquiries, event bookings, or just to say hello. Wheat Ridge, CO.",
+  openGraph: {
+    title: "Contact | Big Sexy's Brine Co.",
+    description: "Get in touch for orders, wholesale inquiries, event bookings, or just to say hello.",
+    images: [{ url: "/images/logo/logo-transparent.png" }],
+  },
 };
 
 export default function ContactPage() {
@@ -19,7 +24,7 @@ export default function ContactPage() {
           <Badge className="bg-brand-orange/10 text-brand-orange border-brand-orange/20 mb-4">
             Get in Touch
           </Badge>
-          <h1 className="font-display text-5xl sm:text-6xl font-bold text-brand-cream">
+          <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
             Contact Us
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
