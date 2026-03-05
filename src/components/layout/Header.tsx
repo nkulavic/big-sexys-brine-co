@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Phone } from "lucide-react";
 import { Container } from "./Container";
 import { cn } from "@/lib/utils";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle } from "@/components/ui/sheet";
@@ -64,7 +64,14 @@ export function Header() {
             ))}
           </div>
 
-          <div className="hidden lg:block">
+          <div className="hidden lg:flex items-center gap-4">
+            <a
+              href="tel:+17203540527"
+              className="inline-flex items-center gap-1.5 text-sm text-brand-cream/60 hover:text-brand-orange transition-colors"
+            >
+              <Phone size={14} />
+              (720) 354-0527
+            </a>
             <Link
               href="/contact"
               className="inline-flex items-center px-5 py-2.5 bg-brand-orange text-white text-sm font-semibold rounded-full hover:bg-brand-orange/90 transition-colors"
@@ -110,7 +117,14 @@ export function Header() {
                     {link.label}
                   </Link>
                 ))}
-                <div className="mt-6 px-2">
+                <div className="mt-6 px-2 space-y-3">
+                  <a
+                    href="tel:+17203540527"
+                    className="flex items-center justify-center gap-2 w-full px-5 py-3 border border-brand-cream/20 text-brand-cream font-medium rounded-full hover:border-brand-orange hover:text-brand-orange transition-colors"
+                  >
+                    <Phone size={16} />
+                    (720) 354-0527
+                  </a>
                   <Link
                     href="/contact"
                     onClick={() => setOpen(false)}

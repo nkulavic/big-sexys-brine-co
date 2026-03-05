@@ -35,8 +35,10 @@ export function Footer() {
               </div>
             </div>
             <p className="text-brand-cream/70 text-sm leading-relaxed">
-              Bold flavors, small batches, big heart. Handcrafted in
-              Wheat Ridge, Colorado. Brined to Perfection.
+              Small-batch preserved foods made by hand in Wheat Ridge, Colorado.
+            </p>
+            <p className="text-brand-cream/50 text-sm italic">
+              Born from resilience. Brined to perfection.
             </p>
           </div>
 
