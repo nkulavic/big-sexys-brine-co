@@ -36,8 +36,8 @@ export default function HomePage() {
                 <span className="text-gradient">Perfection</span>
               </h1>
               <p className="text-lg sm:text-xl text-brand-cream/70 max-w-2xl mx-auto leading-relaxed">
-                Small-batch artisan preserved foods handcrafted with passion in
-                Wheat Ridge, Colorado. 18 unique varieties of bold, flavorful goodness.
+                18 varieties of bold, handcrafted preserved foods — born in Wheat Ridge, Colorado
+                and built on grit, flavor, and a whole lot of heart.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-4 pt-4">
@@ -70,8 +70,8 @@ export default function HomePage() {
               Grab a Jar
             </h2>
             <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto">
-              The ones people keep coming back for. Handcrafted, small-batch, and
-              packed with Big Sexy&apos;s signature flavor.
+              No shortcuts, no filler — just real ingredients and flavors worth
+              fighting over. These are the ones that disappear first at the market.
             </p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -105,13 +105,14 @@ export default function HomePage() {
               </h2>
               <div className="space-y-4 text-brand-cream/70 leading-relaxed">
                 <p>
-                  Big Sexy&apos;s Brine Co. was born from resilience, recovery, and a
-                  damn good recipe. Every jar you buy doesn&apos;t just pack a punch of
-                  flavor — it supports a family and the second chance that was
-                  hard-earned.
+                  This brand wasn&apos;t born in a boardroom. It was born from
+                  rock bottom, recovery, and a recipe that was too good to keep
+                  to ourselves. When you grab a jar, you&apos;re not just getting
+                  incredible flavor — you&apos;re backing a comeback story and
+                  a family that&apos;s building something real.
                 </p>
                 <p className="font-display text-xl text-brand-cream italic">
-                  &ldquo;Grab a jar. Support a dream. Taste the comeback.&rdquo;
+                  &ldquo;Every jar is proof that second chances taste pretty damn good.&rdquo;
                 </p>
               </div>
               <Link
@@ -249,8 +250,8 @@ export default function HomePage() {
               Follow the Journey
             </h2>
             <p className="text-brand-cream/60 max-w-xl">
-              Behind-the-scenes looks, new drops, market schedules, and the
-              occasional jar-related dad joke. Come hang.
+              New flavors, market drops, kitchen chaos, and the stuff that
+              doesn&apos;t make it onto the label. This is where it all happens first.
             </p>
             <a
               href="https://www.instagram.com/bigsexysbrineco"

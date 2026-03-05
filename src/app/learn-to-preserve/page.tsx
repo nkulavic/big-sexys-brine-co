@@ -122,8 +122,8 @@ export default function LearnToPreservePage() {
             Ready to Learn the Art of the Brine?
           </h2>
           <p className="text-brand-cream/60 text-lg mb-8 max-w-xl mx-auto">
-            Spots are limited to {classInfo.maxStudents} students per class.
-            Reach out to book your seat.
+            Only {classInfo.maxStudents} spots per class — small enough that you
+            actually learn something, big enough to have a good time doing it.
           </p>
           <Link
             href="/contact?subject=class"
@@ -132,7 +132,7 @@ export default function LearnToPreservePage() {
             Book Your Spot — ${classInfo.price}
           </Link>
           <p className="mt-4 text-sm text-brand-cream/40">
-            Have questions? Email us at bigsexysbrineco@gmail.com
+            Questions before you commit? Hit us at bigsexysbrineco@gmail.com
           </p>
         </div>
       </Container>

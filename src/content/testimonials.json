@@ -1,30 +1,30 @@
 [
   {
     "id": 1,
-    "quote": "Best spicy jars I've ever had. The perfect crunch and the heat builds just right. I'm hooked!",
+    "quote": "I've tried fancy pickles from all over. Nothing comes close. The crunch is real, the heat sneaks up on you, and the jar was gone in two days.",
     "author": "Mike R.",
-    "product": "Spicy Variety"
+    "product": "Spicy Pickles"
   },
   {
     "id": 2,
-    "quote": "The Cowboy Candy is dangerously addictive. I put it on everything - burgers, eggs, cream cheese. Can't stop.",
+    "quote": "Bought the Cowboy Candy at a market thinking it'd last a week. Mixed it into cream cheese that night and it was gone by Sunday. Already ordered more.",
     "author": "Sarah T.",
     "product": "Cowboy Candy"
   },
   {
     "id": 3,
-    "quote": "I bought the garlic at a farmers market on a whim. Now I drive across town to get more. Life-changing.",
+    "quote": "I grabbed the garlic on a whim at a farmers market. Ate half the jar in the parking lot. Now I drive across town to find Jesse and stock up.",
     "author": "Carlos M.",
-    "product": "Brined Garlic"
+    "product": "Pickled Garlic"
   },
   {
     "id": 4,
-    "quote": "Jesse's passion shows in every jar. You can taste the quality and care. Supporting this brand is a no-brainer.",
+    "quote": "You can taste the difference between this and store-bought anything. Jesse puts real love into these jars, and it shows in every bite.",
     "author": "Denver Dave"
   },
   {
     "id": 5,
-    "quote": "The Shoyu Garlic blew my mind. I've never tasted anything like it. Umami perfection.",
+    "quote": "The Shoyu Garlic is unreal. I put it in ramen, on rice bowls, straight out of the jar — it's umami in a way I've never tasted from a brined product.",
     "author": "Kim L.",
     "product": "Shoyu Garlic"
   }

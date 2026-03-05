@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Container } from "./Container";
-import { Instagram, Mail, MapPin } from "lucide-react";
+import { Instagram, Mail, MapPin, Phone } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 
 const footerLinks = [
@@ -35,7 +35,7 @@ export function Footer() {
               </div>
             </div>
             <p className="text-brand-cream/70 text-sm leading-relaxed">
-              Small-batch artisan preserved foods handcrafted with passion in
+              Bold flavors, small batches, big heart. Handcrafted in
               Wheat Ridge, Colorado. Brined to Perfection.
             </p>
           </div>
@@ -65,6 +65,13 @@ export function Footer() {
               Connect
             </h4>
             <div className="space-y-3">
+              <a
+                href="tel:+17203540527"
+                className="flex items-center gap-2 text-sm text-brand-cream/70 hover:text-brand-orange transition-colors"
+              >
+                <Phone size={16} />
+                (720) 354-0527
+              </a>
               <a
                 href="mailto:bigsexysbrineco@gmail.com"
                 className="flex items-center gap-2 text-sm text-brand-cream/70 hover:text-brand-orange transition-colors"

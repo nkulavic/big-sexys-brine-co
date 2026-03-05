@@ -29,8 +29,9 @@ export default function ProductsPage() {
             The Lineup
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Every jar is handcrafted in small batches. No shortcuts, no filler —
-            just bold flavors and the freshest ingredients we can get our hands on.
+            From our signature spicy dills to garlic that&apos;ll change your life —
+            every jar is small-batch, handmade, and packed with more flavor than
+            it has any right to be.
           </p>
         </div>
         <ProductGrid products={products} />

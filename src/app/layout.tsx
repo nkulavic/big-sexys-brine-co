@@ -50,6 +50,7 @@ export const metadata: Metadata = {
     title: "Big Sexy's Brine Co.",
     description: "Small-batch artisan preserved foods. Brined to Perfection.",
   },
+  manifest: "/manifest.json",
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bigsexysbrineco.com"),
 };
 

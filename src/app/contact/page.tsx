@@ -1,7 +1,7 @@
 import { Container } from "@/components/layout/Container";
 import { ContactForm } from "@/components/forms/ContactForm";
 import { Badge } from "@/components/ui/badge";
-import { Mail, MapPin, Instagram } from "lucide-react";
+import { Mail, MapPin, Instagram, Phone } from "lucide-react";
 import Image from "next/image";
 import type { Metadata } from "next";
 
@@ -28,8 +28,8 @@ export default function ContactPage() {
             Say Hello
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Questions, custom orders, wholesale, or just want to talk about
-            jars — drop us a line.
+            Got a question, a custom order idea, or just want to nerd out
+            about brining? We&apos;re all ears.
           </p>
         </div>
 
@@ -47,6 +47,19 @@ export default function ContactPage() {
               </h3>
 
               <div className="space-y-4">
+                <a
+                  href="tel:+17203540527"
+                  className="flex items-center gap-3 text-brand-cream/70 hover:text-brand-orange transition-colors"
+                >
+                  <div className="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center shrink-0">
+                    <Phone size={18} className="text-brand-green" />
+                  </div>
+                  <div>
+                    <p className="text-sm text-brand-cream/50">Phone</p>
+                    <p className="font-medium">(720) 354-0527</p>
+                  </div>
+                </a>
+
                 <a
                   href="mailto:bigsexysbrineco@gmail.com"
                   className="flex items-center gap-3 text-brand-cream/70 hover:text-brand-orange transition-colors"
@@ -108,8 +121,9 @@ export default function ContactPage() {
                 Custom Orders
               </h3>
               <p className="text-sm text-brand-cream/60">
-                Need bulk orders for an event, restaurant, or gift? We do custom
-                orders with personalized labels available.
+                Stocking a restaurant, gifting for an event, or just need a
+                serious amount of jars? We do custom runs with personalized
+                labels — let&apos;s make it happen.
               </p>
             </div>
           </div>

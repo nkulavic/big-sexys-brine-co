@@ -25,6 +25,7 @@ export function LocalBusinessJsonLd() {
         url: "https://bigsexysbrineco.com",
         logo: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
         image: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
+        telephone: "+1-720-354-0527",
         email: "bigsexysbrineco@gmail.com",
         address: {
           "@type": "PostalAddress",

@@ -37,8 +37,8 @@ export default function EventsPage() {
             Find Us
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Come say hi, try some samples, and take home a jar. We&apos;re at
-            markets and festivals across Colorado — here&apos;s where to catch us.
+            We set up, we hand out samples, we talk your ear off about brine
+            ratios. Here&apos;s where you can catch us next across Colorado.
           </p>
         </div>
 
@@ -113,8 +113,9 @@ export default function EventsPage() {
           ) : (
             <div className="bg-card border border-brand-brown/20 rounded-xl p-12 text-center">
               <p className="text-brand-cream/60 text-lg">
-                No upcoming events scheduled. Follow us on Instagram for the
-                latest updates!
+                Nothing on the calendar just yet — but we&apos;re always
+                cooking something up. Follow us on Instagram to be the first
+                to know.
               </p>
               <a
                 href="https://www.instagram.com/bigsexysbrineco"
@@ -167,8 +168,8 @@ export default function EventsPage() {
             Want Us at Your Event?
           </h3>
           <p className="text-brand-cream/60 mb-6 max-w-xl mx-auto">
-            We&apos;re always looking for new markets, festivals, and pop-up
-            opportunities across Colorado.
+            Got a market, festival, or pop-up that needs some heat? We&apos;re
+            always down to set up shop somewhere new.
           </p>
           <Link
             href="/contact"

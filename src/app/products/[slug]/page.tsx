@@ -67,7 +67,7 @@ export default async function ProductDetailPage({
             className="inline-flex items-center gap-2 text-brand-cream/60 hover:text-brand-orange transition-colors mb-8"
           >
             <ArrowLeft size={16} />
-            Back to Products
+            Back to the Lineup
           </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
@@ -112,7 +112,7 @@ export default async function ProductDetailPage({
 
             <div>
               <h2 className="font-display text-xl font-semibold text-brand-cream mb-3">
-                About This Product
+                The Lowdown
               </h2>
               <p className="text-brand-cream/70 leading-relaxed">
                 {product.description}
@@ -121,7 +121,7 @@ export default async function ProductDetailPage({
 
             <div>
               <h2 className="font-display text-xl font-semibold text-brand-cream mb-3">
-                Ingredients
+                What&apos;s In the Jar
               </h2>
               <div className="flex flex-wrap gap-2">
                 {product.ingredients.map((ingredient) => (
@@ -140,24 +140,24 @@ export default async function ProductDetailPage({
 
             <div className="bg-card border border-brand-brown/20 rounded-xl p-6 space-y-4">
               <h3 className="font-display text-lg font-semibold text-brand-cream">
-                Want to Order?
+                Want This Jar?
               </h3>
               <p className="text-sm text-brand-cream/60">
-                Contact us for custom orders, bulk pricing, or to find out which
-                markets we&apos;ll be at next.
+                Grab one at our next market, or reach out for custom orders and
+                bulk pricing. We&apos;ll hook you up.
               </p>
               <div className="flex flex-col sm:flex-row gap-3">
                 <Link
                   href="/contact"
                   className="inline-flex items-center justify-center px-6 py-3 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-colors"
                 >
-                  Inquire Now
+                  Say Hello
                 </Link>
                 <Link
                   href="/events"
                   className="inline-flex items-center justify-center px-6 py-3 border border-brand-cream/30 text-brand-cream font-semibold rounded-full hover:border-brand-orange hover:text-brand-orange transition-colors"
                 >
-                  Find Us at a Market
+                  Find Us Live
                 </Link>
               </div>
             </div>

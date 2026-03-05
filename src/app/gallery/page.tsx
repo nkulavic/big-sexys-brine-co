@@ -38,8 +38,8 @@ export default function GalleryPage() {
             Behind the Jars
           </h1>
           <p className="mt-4 text-brand-cream/60 max-w-2xl mx-auto text-lg">
-            Markets, kitchen prep, the brining process, and the jars
-            themselves. This is what it looks like behind the scenes.
+            The markets, the mess, the late-night kitchen sessions — this is
+            what it actually looks like to build a brine company from scratch.
           </p>
         </div>
 
@@ -47,11 +47,11 @@ export default function GalleryPage() {
 
         <div className="mt-16 bg-card border border-brand-brown/20 rounded-xl p-8 sm:p-12 text-center">
           <h2 className="font-display text-2xl font-bold text-brand-cream mb-3">
-            More Photos Coming Soon
+            This Is Just the Beginning
           </h2>
           <p className="text-brand-cream/60 max-w-xl mx-auto">
-            We&apos;re constantly adding new photos from markets, events, and
-            behind the scenes. Follow us on Instagram for the latest.
+            Every market, every batch, every late night in the kitchen — we&apos;re
+            documenting it all. Follow along on Instagram for the freshest shots.
           </p>
           <a
             href="https://www.instagram.com/bigsexysbrineco"

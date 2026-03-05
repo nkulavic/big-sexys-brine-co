@@ -22,19 +22,19 @@ const values = [
     icon: Flame,
     title: "Small Batch",
     description:
-      "Every jar is handcrafted in small batches. No mass production, no shortcuts. Just quality ingredients and careful attention to every detail.",
+      "We don't do assembly lines. Every jar gets made by hand, in small runs, with ingredients we'd put on our own table. That's the only way we know how to do it.",
   },
   {
     icon: Heart,
     title: "Made with Heart",
     description:
-      "This isn't just a business — it's a legacy. Every jar carries the passion, resilience, and heart that built this brand from the ground up.",
+      "This isn't just a business — it's a second chance turned into a legacy. Every jar carries the fight, the comeback, and the love that built this brand from nothing.",
   },
   {
     icon: Users,
     title: "Community First",
     description:
-      "From farmers markets to festivals, we believe in showing up, sharing samples, and building real connections with the people who love our products.",
+      "We show up. Every market, every festival — we're there with samples, stories, and a handshake. The people who eat our stuff are the reason we keep making it.",
   },
 ];
 
@@ -61,31 +61,32 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-5 gap-12">
             <div className="lg:col-span-3 space-y-6">
               <p className="text-lg text-brand-cream/80 leading-relaxed">
-                Canning started as a survival skill — a &ldquo;prepper&rdquo;
-                essential taught to me by a close friend back in 2008. We braved
-                the learning curve together, turning out some decent products,
-                but it was the spicy green beans that truly hooked me.
+                It started in 2008 — a buddy taught me how to can as a
+                &ldquo;prepper&rdquo; thing. We fumbled our way through those
+                first batches together, and most of it was honestly pretty rough.
+                But then we nailed the spicy green beans, and something clicked.
+                I was hooked.
               </p>
               <p className="text-lg text-brand-cream/80 leading-relaxed">
-                Then, life got heavy. For over a decade, I battled deep
-                depression and made choices that pushed my passions to the
-                wayside. The jars stopped, but the spark didn&apos;t.
+                Then life hit hard. Over a decade of depression, bad decisions,
+                and pushing away everything I loved. The jars gathered dust. But
+                somewhere underneath all of it, the spark never fully went out.
               </p>
               <p className="text-lg text-brand-cream/80 leading-relaxed">
-                In 2022, I chose a new path. I started my mental health journey,
-                embraced sobriety, and returned to the hobbies that made me feel
-                alive — sound design and, of course, the art of the brine. When
-                I was laid off in 2025, I didn&apos;t see a dead end; I saw an
-                opening. I decided to start building a legacy.
+                In 2022, I made the hardest choice of my life — I got sober and
+                started rebuilding. I came back to the things that made me feel
+                like myself again: sound design, creativity, and the art of the
+                brine. When I got laid off in 2025, most people would&apos;ve
+                panicked. I saw it as the push I needed. Time to stop dreaming
+                and start building.
               </p>
 
               <div className="bg-card border border-brand-orange/20 rounded-xl p-8 my-8">
                 <p className="font-display text-2xl sm:text-3xl text-brand-cream italic leading-relaxed">
-                  &ldquo;Big Sexy&apos;s Brine Co. was born from resilience,
-                  recovery, and a damn good recipe. Every jar you buy
-                  doesn&apos;t just pack a punch of flavor — it supports my
-                  family and the second chance I&apos;ve worked so hard to
-                  build.&rdquo;
+                  &ldquo;Every jar you grab isn&apos;t just food — it&apos;s
+                  proof that hitting rock bottom doesn&apos;t have to be the
+                  end of the story. You&apos;re supporting my family, my
+                  recovery, and the dream I almost gave up on.&rdquo;
                 </p>
                 <p className="mt-4 text-brand-orange font-semibold">
                   — Jesse Thompson, Founder
@@ -93,7 +94,7 @@ export default function AboutPage() {
               </div>
 
               <p className="text-2xl font-display font-bold text-brand-cream">
-                Grab a jar. Support a dream. Taste the comeback.
+                That&apos;s the story. Now grab a jar and taste what a second chance is made of.
               </p>
             </div>
 
@@ -155,25 +156,25 @@ export default function AboutPage() {
         <Container>
           <div className="text-center max-w-2xl mx-auto space-y-6">
             <h2 className="font-display text-4xl font-bold text-brand-cream">
-              Ready to Taste the Difference?
+              Now You Know the Story. Try the Jars.
             </h2>
             <p className="text-brand-cream/60 text-lg">
-              Explore our full lineup of 18 handcrafted varieties or find us at
-              a market near you.
+              18 handcrafted varieties, each one made with the same fire that
+              built this brand. Come find your favorite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link
                 href="/products"
                 className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-colors"
               >
-                Browse Products
+                See the Lineup
                 <ArrowRight size={18} />
               </Link>
               <Link
                 href="/events"
                 className="inline-flex items-center gap-2 px-8 py-4 border-2 border-brand-cream/30 text-brand-cream font-semibold rounded-full hover:border-brand-orange hover:text-brand-orange transition-colors"
               >
-                Find Us at Events
+                Catch Us at a Market
               </Link>
             </div>
           </div>
