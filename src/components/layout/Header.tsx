@@ -45,7 +45,7 @@ export function Header() {
               alt="Big Sexy's Brine Co."
               width={50}
               height={50}
-              className="rounded-full"
+              className=""
               priority
             />
             <span className="font-display text-xl font-bold text-brand-cream hidden sm:block">
@@ -97,7 +97,7 @@ export function Header() {
                     alt="Big Sexy's Brine Co."
                     width={40}
                     height={40}
-                    className="rounded-full"
+                    className=""
                   />
                   <span className="font-display text-lg font-bold text-brand-cream">
                     Big Sexy&apos;s Brine Co.

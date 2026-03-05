@@ -26,7 +26,7 @@ export function Footer() {
                 alt="Big Sexy's Brine Co."
                 width={50}
                 height={50}
-                className="rounded-full"
+                className=""
               />
               <div>
                 <h3 className="font-display text-xl font-bold text-brand-cream">
