@@ -23,8 +23,8 @@ export function LocalBusinessJsonLd() {
         description:
           "Small-batch artisan preserved foods handcrafted in Wheat Ridge, Colorado.",
         url: "https://bigsexysbrineco.com",
-        logo: "https://bigsexysbrineco.com/images/logo/logo-black-bg.png",
-        image: "https://bigsexysbrineco.com/images/logo/logo-black-bg.png",
+        logo: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
+        image: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
         email: "bigsexysbrineco@gmail.com",
         address: {
           "@type": "PostalAddress",

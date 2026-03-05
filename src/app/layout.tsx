@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     title: "Big Sexy's Brine Co. | Small-Batch Artisan Preserved Foods",
     description:
       "Small-batch artisan preserved foods handcrafted in Wheat Ridge, CO. Brined to Perfection.",
-    images: [{ url: "/images/logo/logo-black-bg.png", width: 1024, height: 1024 }],
+    images: [{ url: "/images/logo/logo-transparent.png", width: 1024, height: 1024 }],
   },
   twitter: {
     card: "summary_large_image",
