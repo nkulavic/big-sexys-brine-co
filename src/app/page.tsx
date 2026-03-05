@@ -125,7 +125,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="aspect-square relative rounded-2xl overflow-hidden border border-brand-brown/30">
                 <Image
-                  src="/images/logo/logo-black-bg.png"
+                  src="/images/gallery/jesse-escabeche.jpg"
                   alt="Big Sexy's Brine Co. founder Jesse Thompson"
                   fill
                   className="object-cover"

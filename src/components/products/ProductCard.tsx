@@ -22,17 +22,15 @@ export function ProductCard({ product, className }: ProductCardProps) {
       )}
     >
       <div className="aspect-square relative bg-brand-brown/10 overflow-hidden">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <Image
-            src="/images/logo/logo-black-bg.png"
-            alt={product.name}
-            width={200}
-            height={200}
-            className="opacity-20 group-hover:opacity-30 transition-opacity"
-          />
-        </div>
+        <Image
+          src={product.image}
+          alt={product.name}
+          fill
+          className="object-cover group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+        />
         <Badge
-          className="absolute top-3 right-3 bg-brand-orange/90 text-white text-xs border-0"
+          className="absolute top-3 right-3 bg-brand-orange/90 text-white text-xs border-0 z-10"
         >
           {product.size}
         </Badge>

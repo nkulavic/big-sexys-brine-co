@@ -95,10 +95,10 @@ export default function AboutPage() {
             <div className="lg:col-span-2 space-y-6">
               <div className="aspect-[3/4] relative rounded-2xl overflow-hidden border border-brand-brown/30 sticky top-28">
                 <Image
-                  src="/images/logo/logo-black-bg.png"
+                  src="/images/gallery/jesse-with-jars.jpg"
                   alt="Jesse Thompson - Big Sexy"
                   fill
-                  className="object-contain p-8"
+                  className="object-cover"
                 />
                 <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-brand-black/80 to-transparent p-6">
                   <p className="font-display text-xl font-bold text-brand-cream">

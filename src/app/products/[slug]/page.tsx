@@ -64,15 +64,14 @@ export default async function ProductDetailPage({
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
           {/* Product Image */}
           <div className="aspect-square relative rounded-2xl overflow-hidden border border-brand-brown/20 bg-card">
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Image
-                src="/images/logo/logo-black-bg.png"
-                alt={product.name}
-                width={300}
-                height={300}
-                className="opacity-20"
-              />
-            </div>
+            <Image
+              src={product.image}
+              alt={product.name}
+              fill
+              className="object-cover"
+              sizes="(max-width: 1024px) 100vw, 50vw"
+              priority
+            />
             <Badge className="absolute top-4 right-4 bg-brand-orange text-white text-sm border-0 z-10">
               {product.size}
             </Badge>

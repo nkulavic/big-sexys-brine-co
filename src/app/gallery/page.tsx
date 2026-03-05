@@ -10,8 +10,15 @@ export const metadata: Metadata = {
 };
 
 const galleryImages = [
-  { src: "/images/logo/logo-black-bg.png", alt: "Big Sexy's Brine Co. Logo", category: "Brand" },
-  { src: "/images/logo/logo-cutout.png", alt: "Big Sexy's Brine Co. Logo Cutout", category: "Brand" },
+  { src: "/images/gallery/jesse-with-jars.jpg", alt: "Jesse with a lineup of fresh jars", category: "Behind the Scenes" },
+  { src: "/images/gallery/jesse-escabeche.jpg", alt: "Jesse with escabeche and pepper jars", category: "Behind the Scenes" },
+  { src: "/images/gallery/kitchen-prep.jpg", alt: "Kitchen prep - fresh ingredients ready for brining", category: "Behind the Scenes" },
+  { src: "/images/gallery/pouring-brine.jpg", alt: "Pouring hot brine over fresh escabeche", category: "Process" },
+  { src: "/images/gallery/radish-process.jpg", alt: "Hands-on radish brining process", category: "Process" },
+  { src: "/images/gallery/radish-closeup.jpg", alt: "Fresh radish slices with peppers before sealing", category: "Products" },
+  { src: "/images/gallery/jar-lineup.jpg", alt: "Colorful lineup of pepper and garlic jars", category: "Products" },
+  { src: "/images/gallery/mixed-peppers-closeup.jpg", alt: "Mixed peppers close-up - serrano, fresno, habanero", category: "Products" },
+  { src: "/images/gallery/onions-garlic-overhead.jpg", alt: "Overhead shot of onion and garlic jars", category: "Products" },
 ];
 
 export default function GalleryPage() {
