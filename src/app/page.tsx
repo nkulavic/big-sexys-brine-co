@@ -22,7 +22,7 @@ export default function HomePage() {
             <div className="relative">
               <div className="absolute -inset-4 bg-brand-orange/20 rounded-full blur-3xl" />
               <Image
-                src="/images/logo/logo-black-bg.png"
+                src="/images/logo/logo-transparent.png"
                 alt="Big Sexy's Brine Co."
                 width={280}
                 height={280}

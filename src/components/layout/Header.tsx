@@ -41,7 +41,7 @@ export function Header() {
         <nav className="flex items-center justify-between h-20">
           <Link href="/" className="flex items-center gap-3 shrink-0">
             <Image
-              src="/images/logo/logo-cutout.png"
+              src="/images/logo/logo-transparent.png"
               alt="Big Sexy's Brine Co."
               width={50}
               height={50}
@@ -93,7 +93,7 @@ export function Header() {
               <div className="flex flex-col gap-2 mt-8">
                 <div className="flex items-center gap-3 mb-8 px-2">
                   <Image
-                    src="/images/logo/logo-cutout.png"
+                    src="/images/logo/logo-transparent.png"
                     alt="Big Sexy's Brine Co."
                     width={40}
                     height={40}

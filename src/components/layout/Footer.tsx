@@ -22,7 +22,7 @@ export function Footer() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Image
-                src="/images/logo/logo-cutout.png"
+                src="/images/logo/logo-transparent.png"
                 alt="Big Sexy's Brine Co."
                 width={50}
                 height={50}
