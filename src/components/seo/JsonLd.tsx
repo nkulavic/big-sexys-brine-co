@@ -22,9 +22,9 @@ export function LocalBusinessJsonLd() {
         name: "Big Sexy's Brine Co.",
         description:
           "Small-batch artisan preserved foods handcrafted in Wheat Ridge, Colorado.",
-        url: "https://bigsexysbrineco.com",
-        logo: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
-        image: "https://bigsexysbrineco.com/images/logo/logo-transparent.png",
+        url: "https://bigsexysbrine.co",
+        logo: "https://bigsexysbrine.co/images/logo/logo-transparent.png",
+        image: "https://bigsexysbrine.co/images/logo/logo-transparent.png",
         telephone: "+1-720-354-0527",
         email: "bigsexysbrineco@gmail.com",
         address: {
@@ -52,7 +52,7 @@ export function ProductJsonLd({ product }: { product: Product }) {
         "@type": "Product",
         name: product.name,
         description: product.description,
-        image: `https://bigsexysbrineco.com${product.image}`,
+        image: `https://bigsexysbrine.co${product.image}`,
         brand: {
           "@type": "Brand",
           name: "Big Sexy's Brine Co.",
@@ -84,7 +84,7 @@ export function EventJsonLd({ event }: { event: EventType }) {
         organizer: {
           "@type": "Organization",
           name: "Big Sexy's Brine Co.",
-          url: "https://bigsexysbrineco.com",
+          url: "https://bigsexysbrine.co",
         },
         eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
       }}
@@ -104,7 +104,7 @@ export function CourseJsonLd() {
         provider: {
           "@type": "Organization",
           name: "Big Sexy's Brine Co.",
-          url: "https://bigsexysbrineco.com",
+          url: "https://bigsexysbrine.co",
         },
         offers: {
           "@type": "Offer",
@@ -135,7 +135,7 @@ export function BreadcrumbJsonLd({ items }: { items: { name: string; href: strin
           "@type": "ListItem",
           position: i + 1,
           name: item.name,
-          item: `https://bigsexysbrineco.com${item.href}`,
+          item: `https://bigsexysbrine.co${item.href}`,
         })),
       }}
     />
