@@ -36,7 +36,7 @@ export default function HomePage() {
                 <span className="text-gradient">Perfection</span>
               </h1>
               <p className="text-lg sm:text-xl text-brand-cream/70 max-w-2xl mx-auto leading-relaxed">
-                18 varieties of bold, handcrafted preserved foods — born in Wheat Ridge, Colorado
+                15 varieties of bold, handcrafted preserved foods — born in Wheat Ridge, Colorado
                 and built on grit, flavor, and a whole lot of heart.
               </p>
             </div>
@@ -84,7 +84,7 @@ export default function HomePage() {
               href="/products"
               className="inline-flex items-center gap-2 text-brand-orange hover:text-brand-gold font-semibold transition-colors"
             >
-              See All 18 Varieties
+              See All 15 Varieties
               <ArrowRight size={18} />
             </Link>
           </div>
@@ -171,6 +171,32 @@ export default function HomePage() {
                 </div>
               </div>
             ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* Win a Free Jar Contest */}
+      <section className="py-16 bg-gradient-to-r from-brand-orange/10 via-brand-gold/10 to-brand-orange/10 border-y border-brand-orange/20">
+        <Container>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-center sm:text-left">
+            <div className="space-y-2">
+              <Badge className="bg-brand-gold/10 text-brand-gold border-brand-gold/20">
+                Contest
+              </Badge>
+              <h2 className="font-display text-3xl sm:text-4xl font-bold text-brand-cream">
+                Win a Free Jar of Pickles
+              </h2>
+              <p className="text-brand-cream/60 max-w-lg">
+                Think you&apos;re a big dill? Submit your best pickle pun and win a free jar — your choice of flavor.
+              </p>
+            </div>
+            <Link
+              href="/contest"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-brand-orange text-white font-semibold rounded-full hover:bg-brand-orange/90 transition-all hover:scale-105 text-lg shrink-0"
+            >
+              Enter Now
+              <ArrowRight size={20} />
+            </Link>
           </div>
         </Container>
       </section>

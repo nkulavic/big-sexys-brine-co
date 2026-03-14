@@ -15,6 +15,7 @@ const navLinks = [
   { href: "/events", label: "Find Us" },
   { href: "/learn-to-preserve", label: "Take a Class" },
   { href: "/gallery", label: "Behind the Jars" },
+  { href: "/contest", label: "Win a Jar!" },
 ];
 
 export function Header() {
