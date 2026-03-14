@@ -34,7 +34,7 @@ const values = [
     icon: Users,
     title: "Community First",
     description:
-      "We show up. Every market, every festival — we're there with samples, stories, and a handshake. The people who eat our stuff are the reason we keep making it.",
+      "We love showing up — at select markets and festivals across Colorado, we're there with samples, stories, and a handshake. The people who eat our stuff are the reason we keep making it.",
   },
 ];
 
@@ -159,7 +159,7 @@ export default function AboutPage() {
               Now You Know the Story. Try the Jars.
             </h2>
             <p className="text-brand-cream/60 text-lg">
-              18 handcrafted varieties, each one made with the same fire that
+              15 handcrafted varieties, each one made with the same fire that
               built this brand. Come find your favorite.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

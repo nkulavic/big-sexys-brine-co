@@ -7,7 +7,7 @@ export interface Product {
   description: string;
   ingredients: string[];
   heat: number;
-  category: "Signature" | "Classic" | "Spicy" | "Garlic" | "Sweet Heat" | "Traditional" | "Specialty";
+  category: "Signature" | "Non-Spicy" | "Spicy" | "Garlic" | "Sweet Heat" | "Traditional" | "Specialty";
   image: string;
   featured?: boolean;
 }

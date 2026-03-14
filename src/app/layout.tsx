@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     template: "%s | Big Sexy's Brine Co.",
   },
   description:
-    "Small-batch artisan preserved foods handcrafted in Wheat Ridge, CO. 18 unique varieties of spicy, savory, and sweet brined goods. Brined to Perfection.",
+    "Small-batch artisan preserved foods handcrafted in Wheat Ridge, CO. 15 unique varieties of spicy, savory, and sweet pickled goods. Brined to Perfection.",
   keywords: [
     "artisan preserves",
     "small batch",

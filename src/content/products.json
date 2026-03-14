@@ -21,7 +21,7 @@
     "description": "Not everybody wants the heat — and that's okay. These semi-sours deliver that crisp, tangy, old-school deli crunch you crave. Garlic, dill, and a clean brine let the cucumber do the talking. Stack them on sandwiches, serve them on a snack board, or just eat the whole jar standing in front of the fridge. No judgment here.",
     "ingredients": ["Cucumber", "White Vinegar", "Water", "Pickling Salt", "Onion", "Garlic", "Dill", "Seed (Coriander, Celery, Mustard)", "Calcium Chloride"],
     "heat": 0,
-    "category": "Classic",
+    "category": "Non-Spicy",
     "image": "/images/products/semi-sour-pickles.jpg",
     "featured": true
   },
@@ -34,7 +34,7 @@
     "description": "The product that got Jesse hooked on brining back in 2008. Whole green beans, brined crispy with garlic, dill, and our signature pepper trio. They snap when you bite them. They burn (just right) going down. Drop one in a Bloody Mary and watch people lose their minds — or just eat them straight from the jar like a savage. Either way, you win.",
     "ingredients": ["Green Beans", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Onion", "Garlic", "Dill", "Calcium Chloride"],
     "heat": 3,
-    "category": "Spicy",
+    "category": "Signature",
     "image": "/images/products/spicy-dilly-beans.jpg",
     "featured": true
   },
@@ -64,30 +64,6 @@
     "image": "/images/products/shoyu-garlic.jpg"
   },
   {
-    "id": 6,
-    "name": "Manuka Garlic",
-    "slug": "manuka-garlic",
-    "size": "16oz (1/2QT)",
-    "tagline": "The fancy one. Worth every bite.",
-    "description": "This is garlic dressed up for a night out. Premium Manuka honey meets our spicy pepper trio and a warm cumin-coriander spice blend, creating something rich, complex, and honestly kind of luxurious. The honey's sweetness plays off the garlic's bite in a way that'll make you close your eyes and just... appreciate it. Charcuterie boards will never be the same.",
-    "ingredients": ["Peeled Garlic", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Manuka Honey", "Seed (Coriander, Celery, Mustard, Cumin)", "Calcium Chloride"],
-    "heat": 2,
-    "category": "Garlic",
-    "image": "/images/products/manuka-garlic.jpg"
-  },
-  {
-    "id": 7,
-    "name": "Maple Garlic",
-    "slug": "maple-garlic",
-    "size": "16oz (1/2QT)",
-    "tagline": "Sweet. Spicy. Dangerously good.",
-    "description": "Real maple syrup and brined garlic — sounds wild, tastes incredible. The maple brings a deep, caramelized sweetness that wraps around the garlic and our pepper trio's heat like a warm blanket. Glaze it on chicken, fold it into a butter, or eat the whole jar with a fork. We don't judge. This one converts skeptics every single time.",
-    "ingredients": ["Peeled Garlic", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Maple Syrup", "Seed (Coriander, Celery, Mustard, Cumin)", "Calcium Chloride"],
-    "heat": 2,
-    "category": "Garlic",
-    "image": "/images/products/maple-garlic.jpg"
-  },
-  {
     "id": 8,
     "name": "Cowboy Candy",
     "slug": "cowboy-candy",
@@ -115,75 +91,76 @@
   },
   {
     "id": 10,
-    "name": "Brined Jalapenos",
-    "slug": "brined-jalapenos",
+    "name": "Pickled Jalapenos",
+    "slug": "pickled-jalapenos",
     "size": "16oz (1/2QT)",
     "tagline": "Nachos are calling.",
     "description": "Forget those sad, soggy rings from a can. These are crisp, tangy jalapeno slices brined with fresno pepper, garlic, and herbs for a clean, sharp heat that actually tastes like something. Pile them on nachos, layer them on sandwiches, scatter them across pizza — anywhere you want a hit of bright, honest heat. This is what jalapenos are supposed to taste like.",
     "ingredients": ["Jalapenos", "White Vinegar", "Water", "Pickling Salt", "Fresno Pepper", "Onion", "Garlic", "Oregano", "Dill", "Bay Leaf", "Calcium Chloride"],
     "heat": 3,
-    "category": "Spicy",
-    "image": "/images/products/brined-jalapenos.jpg"
+    "category": "Traditional",
+    "image": "/images/products/pickled-jalapenos.jpg"
   },
   {
     "id": 11,
-    "name": "Brined Onions",
-    "slug": "brined-onions",
+    "name": "Pickled Onions",
+    "slug": "pickled-onions",
     "size": "16oz (1/2QT)",
     "tagline": "The topping that steals the show.",
     "description": "Deep ruby red onions brined in red vinegar with a touch of agave and black peppercorn. They're tangy, slightly sweet, and impossibly vibrant. Put them on tacos and they'll outshine the meat. Drop them on a burger and people will ask what your secret is. They make salads look like art. Honestly, these might be the most versatile jar we make.",
     "ingredients": ["Red Onion", "Red Vinegar", "Water", "Pickling Salt", "Agave Nectar", "Garlic", "Black Peppercorn", "Calcium Chloride"],
     "heat": 0,
-    "category": "Classic",
-    "image": "/images/products/brined-onions.jpg"
+    "category": "Non-Spicy",
+    "image": "/images/products/pickled-onions.jpg"
   },
   {
     "id": 12,
-    "name": "Brined Pineapple",
-    "slug": "brined-pineapple",
+    "name": "Pickled Pineapple",
+    "slug": "pickled-pineapple",
     "size": "16oz (1/2QT)",
     "tagline": "Tropical heat you didn't know you needed.",
-    "description": "Yeah, we brined pineapple. And it's incredible. Sweet, tropical chunks hit with serrano, honey, cinnamon, and clove — it's like a vacation in a jar with a little kick at the end. Game-changer on tacos al pastor, unreal alongside a cheese board, and honestly? It's dessert and a snack at the same time. This is the jar that makes people say 'wait, WHAT is this?'",
+    "description": "Yeah, we pickled pineapple. And it's incredible. Sweet, tropical chunks hit with serrano, honey, cinnamon, and clove — it's like a vacation in a jar with a little kick at the end. Game-changer on tacos al pastor, unreal alongside a cheese board, and honestly? It's dessert and a snack at the same time. This is the jar that makes people say 'wait, WHAT is this?'",
     "ingredients": ["Pineapple", "White Vinegar", "Water", "Pickling Salt", "Serrano", "Honey", "Garlic", "Cinnamon", "Clove", "Coriander", "Calcium Chloride"],
     "heat": 1,
-    "category": "Specialty",
-    "image": "/images/products/brined-pineapple.jpg"
+    "category": "Sweet Heat",
+    "image": "/images/products/pickled-pineapple.jpg"
   },
   {
     "id": 13,
-    "name": "Spicy Brined Okra",
-    "slug": "spicy-brined-okra",
+    "name": "Spicy Pickled Okra",
+    "slug": "spicy-pickled-okra",
     "size": "32oz (1QT)",
     "tagline": "Southern snap with Big Sexy heat.",
     "description": "Whole okra pods, brined crisp with our pepper trio for a Southern-inspired snack that packs serious heat. These snap like a bean, burn like a pepper, and taste like nothing you've had before. Perfect in a Bloody Mary, killer on a snack plate, or just eaten one after another while standing at the fridge. The okra haters? They haven't tried these yet.",
     "ingredients": ["Okra", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Onion", "Garlic", "Dill", "Calcium Chloride"],
     "heat": 3,
-    "category": "Spicy",
-    "image": "/images/products/spicy-brined-okra.jpg"
+    "category": "Signature",
+    "image": "/images/products/spicy-pickled-okra.jpg",
+    "featured": true
   },
   {
     "id": 14,
-    "name": "Spicy Brined Radish",
-    "slug": "spicy-brined-radish",
+    "name": "Spicy Pickled Radish",
+    "slug": "spicy-pickled-radish",
     "size": "16oz (1/2QT)",
     "tagline": "Peppery bite meets pepper heat.",
-    "description": "Radishes already have a natural kick — so we leaned into it. Brined in a complex blend of agave, red wine vinegar, and our full pepper trio, these hit you with layers of heat: the radish's peppery bite first, then the habanero's slow burn. Crunchy, bright, and relentless. Toss them on tacos, pair with hummus, or brave them solo. Heat seekers, this one's for you.",
+    "description": "Radishes already have a natural kick — so we leaned into it. Pickled in a complex blend of agave, red wine vinegar, and our full pepper trio, these hit you with layers of heat: the radish's peppery bite first, then the habanero's slow burn. Crunchy, bright, and relentless. Toss them on tacos, pair with hummus, or brave them solo. Heat seekers, this one's for you.",
     "ingredients": ["Radish", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Habanero, Serrano, Fresno)", "Agave Nectar", "Red Wine Vinegar", "Black Peppercorn", "Seed (Coriander, Celery, Mustard, Cumin)", "Calcium Chloride"],
     "heat": 3,
-    "category": "Spicy",
-    "image": "/images/products/spicy-brined-radish.jpg"
+    "category": "Specialty",
+    "image": "/images/products/spicy-pickled-radish.jpg"
   },
   {
     "id": 15,
-    "name": "Spicy Brined Turnip",
-    "slug": "spicy-brined-turnip",
+    "name": "Spicy Pickled Turnip",
+    "slug": "spicy-pickled-turnip",
     "size": "16oz (1/2QT)",
     "tagline": "The sleeper hit of the lineup.",
     "description": "Nobody expects turnips to go this hard. Earthy, crunchy turnip transformed by our fiery pepper trio and a touch of agave sweetness. Inspired by Middle Eastern pickled turnips but with a Big Sexy twist that turns heads at every market. Incredible alongside kebabs, shawarma, falafel — or just on their own as a snack that'll surprise everyone at the table.",
     "ingredients": ["Turnip", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Habanero, Serrano, Fresno)", "Agave Nectar", "Black Peppercorn", "Seed (Celery, Mustard)", "Calcium Chloride"],
     "heat": 3,
-    "category": "Spicy",
-    "image": "/images/products/spicy-brined-turnip.jpg"
+    "category": "Specialty",
+    "image": "/images/products/spicy-pickled-turnip.jpg"
   },
   {
     "id": 16,
@@ -198,27 +175,15 @@
     "image": "/images/products/spicy-mixed-peppers.jpg"
   },
   {
-    "id": 17,
-    "name": "Spicy Purple Carrots",
-    "slug": "spicy-purple-carrots",
+    "id": 19,
+    "name": "Pickled Okra",
+    "slug": "pickled-okra",
     "size": "32oz (1QT)",
-    "tagline": "Gorgeous. Crunchy. Absolutely loaded.",
-    "description": "These purple carrots are stunning — deep violet outside, bright orange inside — and they taste even better than they look. Brined with our signature pepper blend and aromatic herbs, they bring crunch, color, and heat to any plate. The showstopper on a charcuterie board. The conversation starter at a dinner party. The jar that people pick up at the market just because it's so damn beautiful.",
-    "ingredients": ["Purple Carrots", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Onion", "Garlic", "Oregano", "Bay Leaf", "Seed (Celery, Mustard)", "Calcium Chloride"],
-    "heat": 3,
-    "category": "Spicy",
-    "image": "/images/products/spicy-purple-carrots.jpg"
-  },
-  {
-    "id": 18,
-    "name": "Brined Garlic 32oz",
-    "slug": "brined-garlic-32oz",
-    "size": "32oz (1QT)",
-    "tagline": "For the garlic obsessed. No shame.",
-    "description": "You tried the 16oz. You finished it in a week. You're back for the big one. Same incredible recipe — whole cloves brined with raw honey and our spicy pepper trio — but in a full quart because you can never, ever have too much garlic. Cooks, garlic addicts, and repeat customers — this jar has your name on it.",
-    "ingredients": ["Peeled Garlic", "White Vinegar", "Water", "Pickling Salt", "Spicy Peppers (Serrano, Habanero, Fresno)", "Raw Honey", "Seed (Coriander, Celery, Mustard)", "Calcium Chloride"],
-    "heat": 2,
-    "category": "Garlic",
-    "image": "/images/products/brined-garlic-32oz.jpg"
+    "tagline": "Southern charm in every bite.",
+    "description": "All the snap and crunch of our famous okra, without the heat. These whole okra pods are brined with garlic, dill, and a clean, tangy brine that lets the okra's natural flavor shine. Perfect for snacking, adding to a relish tray, or anyone who loves okra but wants to skip the spice. Crisp, satisfying, and dangerously easy to eat.",
+    "ingredients": ["Okra", "White Vinegar", "Water", "Pickling Salt", "Onion", "Garlic", "Dill", "Calcium Chloride"],
+    "heat": 0,
+    "category": "Non-Spicy",
+    "image": "/images/products/pickled-okra.jpg"
   }
 ]
