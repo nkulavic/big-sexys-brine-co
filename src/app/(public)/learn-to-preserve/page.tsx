@@ -18,8 +18,8 @@ export const metadata: Metadata = {
   },
 };
 
-export default function LearnToPreservePage() {
-  const classInfo = getClassInfo();
+export default async function LearnToPreservePage() {
+  const classInfo = await getClassInfo();
 
   return (
     <>

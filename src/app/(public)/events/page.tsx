@@ -18,9 +18,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function EventsPage() {
-  const upcoming = getUpcomingEvents();
-  const past = getPastEvents();
+export default async function EventsPage() {
+  const upcoming = await getUpcomingEvents();
+  const past = await getPastEvents();
 
   return (
     <>

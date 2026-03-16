@@ -6,10 +6,10 @@ import { getFeaturedProducts, getUpcomingEvents, getTestimonials } from "@/lib/d
 import { Calendar, MapPin, ArrowRight, Quote, Instagram } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
-export default function HomePage() {
-  const featuredProducts = getFeaturedProducts();
-  const upcomingEvents = getUpcomingEvents().slice(0, 3);
-  const testimonials = getTestimonials();
+export default async function HomePage() {
+  const featuredProducts = await getFeaturedProducts();
+  const upcomingEvents = (await getUpcomingEvents()).slice(0, 3);
+  const testimonials = await getTestimonials();
 
   return (
     <>
