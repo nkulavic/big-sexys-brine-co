@@ -1,6 +1,6 @@
 import { Container } from "@/components/layout/Container";
 import { ProductGrid } from "@/components/products/ProductGrid";
-import { getProducts } from "@/lib/data";
+import { getProducts, getProductCategories } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import type { Metadata } from "next";
 
@@ -15,8 +15,9 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ProductsPage() {
-  const products = getProducts();
+export default async function ProductsPage() {
+  const products = await getProducts();
+  const categories = await getProductCategories();
 
   return (
     <section className="pt-28 pb-24">
@@ -34,7 +35,7 @@ export default function ProductsPage() {
             it has any right to be.
           </p>
         </div>
-        <ProductGrid products={products} />
+        <ProductGrid products={products} categories={categories} />
       </Container>
     </section>
   );

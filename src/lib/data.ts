@@ -1,51 +1,159 @@
-import productsData from "@/content/products.json";
-import eventsData from "@/content/events.json";
-import classData from "@/content/class.json";
-import testimonialsData from "@/content/testimonials.json";
+import { createClient } from "@/lib/supabase/server";
 import type { Product, Event, ClassInfo, Testimonial } from "@/types";
 
-export function getProducts(): Product[] {
-  return productsData as Product[];
+// Fallback to JSON files if Supabase is not configured
+const useSupabase = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
+
+async function getSupabase() {
+  return await createClient();
 }
 
-export function getProductBySlug(slug: string): Product | undefined {
-  return (productsData as Product[]).find((p) => p.slug === slug);
+// Products
+export async function getProducts(): Promise<Product[]> {
+  if (!useSupabase) {
+    const data = (await import("@/content/products.json")).default;
+    return data as Product[];
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase.from("products").select("*").order("id");
+  return (data ?? []).map(mapProduct);
 }
 
-export function getFeaturedProducts(): Product[] {
-  return (productsData as Product[]).filter((p) => p.featured);
+export async function getProductBySlug(
+  slug: string
+): Promise<Product | undefined> {
+  if (!useSupabase) {
+    const data = (await import("@/content/products.json")).default;
+    return (data as Product[]).find((p) => p.slug === slug);
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .eq("slug", slug)
+    .single();
+  return data ? mapProduct(data) : undefined;
 }
 
-export function getProductsByCategory(category: string): Product[] {
-  if (category === "All") return productsData as Product[];
-  return (productsData as Product[]).filter((p) => p.category === category);
+export async function getFeaturedProducts(): Promise<Product[]> {
+  if (!useSupabase) {
+    const data = (await import("@/content/products.json")).default;
+    return (data as Product[]).filter((p) => p.featured);
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .eq("featured", true)
+    .order("id");
+  return (data ?? []).map(mapProduct);
 }
 
-export function getProductCategories(): string[] {
-  const categories = new Set((productsData as Product[]).map((p) => p.category));
+export async function getProductsByCategory(
+  category: string
+): Promise<Product[]> {
+  if (category === "All") return getProducts();
+  if (!useSupabase) {
+    const data = (await import("@/content/products.json")).default;
+    return (data as Product[]).filter((p) => p.category === category);
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .eq("category", category)
+    .order("id");
+  return (data ?? []).map(mapProduct);
+}
+
+export async function getProductCategories(): Promise<string[]> {
+  const products = await getProducts();
+  const categories = new Set(products.map((p) => p.category));
   return ["All", ...Array.from(categories)];
 }
 
-export function getEvents(): Event[] {
-  return (eventsData as Event[]).sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
-  );
+// Events
+export async function getEvents(): Promise<Event[]> {
+  if (!useSupabase) {
+    const data = (await import("@/content/events.json")).default;
+    return (data as Event[]).sort(
+      (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
+    );
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("events")
+    .select("*")
+    .order("date", { ascending: true });
+  return (data ?? []) as Event[];
 }
 
-export function getUpcomingEvents(): Event[] {
+export async function getUpcomingEvents(): Promise<Event[]> {
+  const events = await getEvents();
   const now = new Date();
-  return getEvents().filter((e) => new Date(e.date) >= now);
+  return events.filter((e) => new Date(e.date) >= now);
 }
 
-export function getPastEvents(): Event[] {
+export async function getPastEvents(): Promise<Event[]> {
+  const events = await getEvents();
   const now = new Date();
-  return getEvents().filter((e) => new Date(e.date) < now);
+  return events.filter((e) => new Date(e.date) < now);
 }
 
-export function getClassInfo(): ClassInfo {
-  return classData as ClassInfo;
+// Class Info
+export async function getClassInfo(): Promise<ClassInfo> {
+  if (!useSupabase) {
+    const data = (await import("@/content/class.json")).default;
+    return data as ClassInfo;
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("class_info")
+    .select("*")
+    .eq("id", 1)
+    .single();
+  if (!data) {
+    const fallback = (await import("@/content/class.json")).default;
+    return fallback as ClassInfo;
+  }
+  return {
+    title: data.title,
+    price: Number(data.price),
+    duration: data.duration,
+    description: data.description,
+    whatYouLearn: data.what_you_learn,
+    whatYouGet: data.what_you_get,
+    maxStudents: data.max_students,
+  };
 }
 
-export function getTestimonials(): Testimonial[] {
-  return testimonialsData as Testimonial[];
+// Testimonials
+export async function getTestimonials(): Promise<Testimonial[]> {
+  if (!useSupabase) {
+    const data = (await import("@/content/testimonials.json")).default;
+    return data as Testimonial[];
+  }
+  const supabase = await getSupabase();
+  const { data } = await supabase
+    .from("testimonials")
+    .select("*")
+    .order("id");
+  return (data ?? []) as Testimonial[];
+}
+
+// Helper to map Supabase product row to Product type
+function mapProduct(row: Record<string, unknown>): Product {
+  return {
+    id: row.id as number,
+    name: row.name as string,
+    slug: row.slug as string,
+    size: row.size as string,
+    tagline: row.tagline as string,
+    description: row.description as string,
+    ingredients: row.ingredients as string[],
+    heat: row.heat as number,
+    category: row.category as Product["category"],
+    image: (row.image_url as string) ?? (row.image as string) ?? "",
+    featured: row.featured as boolean | undefined,
+  };
 }

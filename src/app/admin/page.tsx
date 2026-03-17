@@ -1,0 +1,162 @@
+import { createClient } from "@/lib/supabase/server";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Package, CalendarDays, MessageSquareQuote, Images } from "lucide-react";
+import Link from "next/link";
+
+export default async function AdminDashboardPage() {
+  const supabase = await createClient();
+
+  const [
+    { count: productCount },
+    { count: eventCount },
+    { count: testimonialCount },
+    { count: galleryCount },
+  ] = await Promise.all([
+    supabase.from("products").select("*", { count: "exact", head: true }),
+    supabase.from("events").select("*", { count: "exact", head: true }),
+    supabase.from("testimonials").select("*", { count: "exact", head: true }),
+    supabase.from("gallery_images").select("*", { count: "exact", head: true }),
+  ]);
+
+  // Get upcoming events
+  const { data: upcomingEvents } = await supabase
+    .from("events")
+    .select("*")
+    .gte("date", new Date().toISOString().split("T")[0])
+    .order("date", { ascending: true })
+    .limit(5);
+
+  // Get recent testimonials
+  const { data: recentTestimonials } = await supabase
+    .from("testimonials")
+    .select("*")
+    .order("created_at", { ascending: false })
+    .limit(3);
+
+  const stats = [
+    {
+      label: "Products",
+      value: productCount ?? 0,
+      icon: Package,
+      href: "/admin/products",
+      color: "text-brand-orange",
+    },
+    {
+      label: "Events",
+      value: eventCount ?? 0,
+      icon: CalendarDays,
+      href: "/admin/events",
+      color: "text-brand-gold",
+    },
+    {
+      label: "Testimonials",
+      value: testimonialCount ?? 0,
+      icon: MessageSquareQuote,
+      href: "/admin/testimonials",
+      color: "text-brand-green",
+    },
+    {
+      label: "Gallery Images",
+      value: galleryCount ?? 0,
+      icon: Images,
+      href: "/admin/gallery",
+      color: "text-brand-cream",
+    },
+  ];
+
+  return (
+    <div className="space-y-8">
+      <div>
+        <h1 className="font-display text-2xl font-bold">Dashboard</h1>
+        <p className="text-sm text-muted-foreground">
+          Welcome to Big Sexy&apos;s admin panel
+        </p>
+      </div>
+
+      {/* Stats Grid */}
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {stats.map((stat) => (
+          <Link key={stat.label} href={stat.href}>
+            <Card className="hover:border-muted-foreground/30 transition-colors">
+              <CardHeader className="flex flex-row items-center justify-between pb-2">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
+                  {stat.label}
+                </CardTitle>
+                <stat.icon className={`h-4 w-4 ${stat.color}`} />
+              </CardHeader>
+              <CardContent>
+                <div className="text-3xl font-bold">{stat.value}</div>
+              </CardContent>
+            </Card>
+          </Link>
+        ))}
+      </div>
+
+      <div className="grid gap-6 lg:grid-cols-2">
+        {/* Upcoming Events */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Upcoming Events</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {upcomingEvents && upcomingEvents.length > 0 ? (
+              <div className="space-y-3">
+                {upcomingEvents.map((event) => (
+                  <div
+                    key={event.id}
+                    className="flex items-center justify-between rounded-md border border-border p-3"
+                  >
+                    <div>
+                      <p className="font-medium text-sm">{event.name}</p>
+                      <p className="text-xs text-muted-foreground">
+                        {event.location}
+                      </p>
+                    </div>
+                    <span className="text-xs text-muted-foreground">
+                      {new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No upcoming events
+              </p>
+            )}
+          </CardContent>
+        </Card>
+
+        {/* Recent Testimonials */}
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-lg">Recent Testimonials</CardTitle>
+          </CardHeader>
+          <CardContent>
+            {recentTestimonials && recentTestimonials.length > 0 ? (
+              <div className="space-y-3">
+                {recentTestimonials.map((t) => (
+                  <div
+                    key={t.id}
+                    className="rounded-md border border-border p-3"
+                  >
+                    <p className="text-sm text-muted-foreground line-clamp-2 italic">
+                      &ldquo;{t.quote}&rdquo;
+                    </p>
+                    <p className="mt-1 text-xs font-medium">— {t.author}</p>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="text-sm text-muted-foreground">
+                No testimonials yet
+              </p>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  );
+}

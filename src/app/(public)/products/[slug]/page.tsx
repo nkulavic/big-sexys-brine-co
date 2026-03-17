@@ -10,30 +10,30 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
-export function generateStaticParams() {
-  return getProducts().map((product) => ({
+export async function generateStaticParams() {
+  const products = await getProducts();
+  return products.map((product) => ({
     slug: product.slug,
   }));
 }
 
-export function generateMetadata({
+export async function generateMetadata({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
-  return params.then(({ slug }) => {
-    const product = getProductBySlug(slug);
-    if (!product) return { title: "Product Not Found" };
-    return {
-      title: product.name,
+  const { slug } = await params;
+  const product = await getProductBySlug(slug);
+  if (!product) return { title: "Product Not Found" };
+  return {
+    title: product.name,
+    description: product.description,
+    openGraph: {
+      title: `${product.name} | Big Sexy's Brine Co.`,
       description: product.description,
-      openGraph: {
-        title: `${product.name} | Big Sexy's Brine Co.`,
-        description: product.description,
-        images: [{ url: product.image }],
-      },
-    };
-  });
+      images: [{ url: product.image }],
+    },
+  };
 }
 
 export default async function ProductDetailPage({
@@ -42,11 +42,11 @@ export default async function ProductDetailPage({
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const product = getProductBySlug(slug);
+  const product = await getProductBySlug(slug);
 
   if (!product) notFound();
 
-  const allProducts = getProducts();
+  const allProducts = await getProducts();
   const currentIndex = allProducts.findIndex((p) => p.slug === slug);
   const prevProduct = currentIndex > 0 ? allProducts[currentIndex - 1] : null;
   const nextProduct =

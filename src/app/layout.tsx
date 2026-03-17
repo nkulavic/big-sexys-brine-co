@@ -1,9 +1,6 @@
 import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
-import { LocalBusinessJsonLd } from "@/components/seo/JsonLd";
 
 const body = Inter({
   variable: "--font-body",
@@ -62,10 +59,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${body.variable} ${heading.variable} antialiased`}>
-        <LocalBusinessJsonLd />
-        <Header />
-        <main className="min-h-screen">{children}</main>
-        <Footer />
+        {children}
       </body>
     </html>
   );

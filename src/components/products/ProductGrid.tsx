@@ -2,16 +2,19 @@
 
 import { useState } from "react";
 import { ProductCard } from "./ProductCard";
-import { getProductCategories } from "@/lib/data";
 import type { Product } from "@/types";
 import { cn } from "@/lib/utils";
 
 interface ProductGridProps {
   products: Product[];
+  categories?: string[];
 }
 
-export function ProductGrid({ products }: ProductGridProps) {
-  const categories = getProductCategories();
+export function ProductGrid({ products, categories: categoriesProp }: ProductGridProps) {
+  const categories = categoriesProp ?? [
+    "All",
+    ...Array.from(new Set(products.map((p) => p.category))),
+  ];
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filtered =
