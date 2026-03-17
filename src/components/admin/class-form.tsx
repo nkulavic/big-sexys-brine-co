@@ -6,9 +6,9 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { SortableFormList } from "@/components/admin/sortable-form-list";
 import { updateClassInfo } from "@/app/admin/actions";
 import { toast } from "sonner";
-import { X, Plus } from "lucide-react";
 
 interface ClassFormProps {
   classInfo: {
@@ -62,15 +62,6 @@ export function ClassForm({ classInfo }: ClassFormProps) {
     } finally {
       setSaving(false);
     }
-  };
-
-  const updateList = (
-    list: string[],
-    setList: (val: string[]) => void,
-    index: number,
-    value: string
-  ) => {
-    setList(list.map((item, i) => (i === index ? value : item)));
   };
 
   return (
@@ -143,37 +134,13 @@ export function ClassForm({ classInfo }: ClassFormProps) {
         <CardHeader>
           <CardTitle>What You&apos;ll Learn</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
-          {whatYouLearn.map((item, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <Input
-                value={item}
-                onChange={(e) =>
-                  updateList(whatYouLearn, setWhatYouLearn, index, e.target.value)
-                }
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() =>
-                  setWhatYouLearn(whatYouLearn.filter((_, i) => i !== index))
-                }
-                className="text-destructive"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => setWhatYouLearn([...whatYouLearn, ""])}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Item
-          </Button>
+        <CardContent>
+          <SortableFormList
+            items={whatYouLearn}
+            onChange={setWhatYouLearn}
+            placeholder="Learning item"
+            addLabel="Add Item"
+          />
         </CardContent>
       </Card>
 
@@ -181,37 +148,13 @@ export function ClassForm({ classInfo }: ClassFormProps) {
         <CardHeader>
           <CardTitle>What You&apos;ll Get</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
-          {whatYouGet.map((item, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <Input
-                value={item}
-                onChange={(e) =>
-                  updateList(whatYouGet, setWhatYouGet, index, e.target.value)
-                }
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() =>
-                  setWhatYouGet(whatYouGet.filter((_, i) => i !== index))
-                }
-                className="text-destructive"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
-          <Button
-            type="button"
-            variant="outline"
-            size="sm"
-            onClick={() => setWhatYouGet([...whatYouGet, ""])}
-          >
-            <Plus className="mr-2 h-4 w-4" />
-            Add Item
-          </Button>
+        <CardContent>
+          <SortableFormList
+            items={whatYouGet}
+            onChange={setWhatYouGet}
+            placeholder="Item included"
+            addLabel="Add Item"
+          />
         </CardContent>
       </Card>
 

@@ -10,9 +10,9 @@ import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from "@/components/admin/image-upload";
+import { SortableFormList } from "@/components/admin/sortable-form-list";
 import { createProduct, updateProduct } from "@/app/admin/actions";
 import { toast } from "sonner";
-import { X, Plus } from "lucide-react";
 
 const categories = [
   "Signature",
@@ -107,12 +107,6 @@ export function ProductForm({ product }: ProductFormProps) {
       setSaving(false);
     }
   };
-
-  const addIngredient = () => setIngredients([...ingredients, ""]);
-  const removeIngredient = (index: number) =>
-    setIngredients(ingredients.filter((_, i) => i !== index));
-  const updateIngredient = (index: number, value: string) =>
-    setIngredients(ingredients.map((ing, i) => (i === index ? value : ing)));
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
@@ -214,29 +208,13 @@ export function ProductForm({ product }: ProductFormProps) {
         <CardHeader>
           <CardTitle>Ingredients</CardTitle>
         </CardHeader>
-        <CardContent className="space-y-3">
-          {ingredients.map((ingredient, index) => (
-            <div key={index} className="flex items-center gap-2">
-              <Input
-                value={ingredient}
-                onChange={(e) => updateIngredient(index, e.target.value)}
-                placeholder="Ingredient"
-              />
-              <Button
-                type="button"
-                variant="ghost"
-                size="sm"
-                onClick={() => removeIngredient(index)}
-                className="text-destructive"
-              >
-                <X className="h-4 w-4" />
-              </Button>
-            </div>
-          ))}
-          <Button type="button" variant="outline" size="sm" onClick={addIngredient}>
-            <Plus className="mr-2 h-4 w-4" />
-            Add Ingredient
-          </Button>
+        <CardContent>
+          <SortableFormList
+            items={ingredients}
+            onChange={setIngredients}
+            placeholder="Ingredient"
+            addLabel="Add Ingredient"
+          />
         </CardContent>
       </Card>
 
