@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Pencil } from "lucide-react";
+import { Pencil, Repeat } from "lucide-react";
 import { EventDeleteButton } from "./event-delete-button";
 import { SortableList } from "@/components/admin/sortable-list";
 import { updateEventOrder } from "../actions";
@@ -19,6 +19,9 @@ interface Event {
   id: number;
   name: string;
   date: string;
+  end_date: string | null;
+  is_recurring: boolean;
+  recurrence_day: string | null;
   time: string;
   location: string;
   address: string | null;
@@ -28,6 +31,29 @@ interface Event {
   created_at: string;
 }
 
+function formatDate(event: Event): string {
+  const start = new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+  });
+  if (event.is_recurring && event.recurrence_day && event.end_date) {
+    const end = new Date(event.end_date + "T00:00:00").toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+    return `${event.recurrence_day}s, ${start} – ${end}`;
+  }
+  if (event.end_date) {
+    const end = new Date(event.end_date + "T00:00:00").toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+    });
+    return `${start} – ${end}`;
+  }
+  const year = new Date(event.date + "T00:00:00").getFullYear();
+  return `${start}, ${year}`;
+}
+
 export function EventsSortableList({ events }: { events: Event[] }) {
   return (
     <SortableList
@@ -35,15 +61,14 @@ export function EventsSortableList({ events }: { events: Event[] }) {
       onReorder={updateEventOrder}
       renderItem={(event) => (
         <div className="flex items-center gap-4 py-2 pr-3">
-          <div className="flex-1 min-w-0">
+          <div className="flex-1 min-w-0 flex items-center gap-2">
             <span className="font-medium">{event.name}</span>
+            {event.is_recurring && (
+              <Repeat className="h-3.5 w-3.5 text-brand-green flex-shrink-0" />
+            )}
           </div>
-          <span className="text-sm text-muted-foreground w-28 text-center">
-            {new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            })}
+          <span className="text-sm text-muted-foreground w-40 text-center">
+            {formatDate(event)}
           </span>
           <span className="text-sm text-muted-foreground w-20 text-center">
             {event.time}

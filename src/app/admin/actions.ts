@@ -4,6 +4,76 @@ import { createClient } from "@/lib/supabase/server";
 import { requireAuthAction } from "@/lib/supabase/auth-guard";
 import { revalidatePath } from "next/cache";
 
+// Categories
+export async function createCategory(data: { name: string }) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  const slug = data.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const { data: maxOrder } = await supabase
+    .from("categories")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .single();
+  const sort_order = (maxOrder?.sort_order ?? -1) + 1;
+  const { error } = await supabase
+    .from("categories")
+    .insert({ name: data.name, slug, sort_order });
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/categories");
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
+}
+
+export async function updateCategory(
+  id: number,
+  data: { name: string }
+) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  const slug = data.name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+  const { error } = await supabase
+    .from("categories")
+    .update({ name: data.name, slug })
+    .eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/categories");
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
+}
+
+export async function deleteCategory(id: number) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  const { error } = await supabase.from("categories").delete().eq("id", id);
+  if (error) throw new Error(error.message);
+  revalidatePath("/admin/categories");
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
+}
+
+export async function updateCategoryOrder(
+  items: { id: number; sort_order: number }[]
+) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  for (const item of items) {
+    const { error } = await supabase
+      .from("categories")
+      .update({ sort_order: item.sort_order })
+      .eq("id", item.id);
+    if (error) throw new Error(error.message);
+  }
+  revalidatePath("/admin/categories");
+  revalidatePath("/products");
+}
+
 // Products
 export async function createProduct(data: {
   name: string;
@@ -14,13 +84,26 @@ export async function createProduct(data: {
   ingredients: string[];
   heat: number;
   category: string;
+  category_ids: number[];
   image_url: string | null;
   featured: boolean;
 }) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { error } = await supabase.from("products").insert(data);
+  const { category_ids, ...productData } = data;
+  const { data: inserted, error } = await supabase
+    .from("products")
+    .insert(productData)
+    .select("id")
+    .single();
   if (error) throw new Error(error.message);
+  // Insert category associations
+  if (category_ids.length > 0) {
+    const { error: catError } = await supabase
+      .from("product_categories")
+      .insert(category_ids.map((cid) => ({ product_id: inserted.id, category_id: cid })));
+    if (catError) throw new Error(catError.message);
+  }
   revalidatePath("/admin/products");
   revalidatePath("/products");
   revalidatePath("/");
@@ -37,14 +120,24 @@ export async function updateProduct(
     ingredients: string[];
     heat: number;
     category: string;
+    category_ids: number[];
     image_url: string | null;
     featured: boolean;
   }
 ) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { error } = await supabase.from("products").update(data).eq("id", id);
+  const { category_ids, ...productData } = data;
+  const { error } = await supabase.from("products").update(productData).eq("id", id);
   if (error) throw new Error(error.message);
+  // Replace category associations
+  await supabase.from("product_categories").delete().eq("product_id", id);
+  if (category_ids.length > 0) {
+    const { error: catError } = await supabase
+      .from("product_categories")
+      .insert(category_ids.map((cid) => ({ product_id: id, category_id: cid })));
+    if (catError) throw new Error(catError.message);
+  }
   revalidatePath("/admin/products");
   revalidatePath("/products");
   revalidatePath(`/products/${data.slug}`);
@@ -80,6 +173,9 @@ export async function updateProductOrder(items: { id: number; sort_order: number
 export async function createEvent(data: {
   name: string;
   date: string;
+  end_date: string | null;
+  is_recurring: boolean;
+  recurrence_day: string | null;
   time: string;
   location: string;
   address: string | null;
@@ -99,6 +195,9 @@ export async function updateEvent(
   data: {
     name: string;
     date: string;
+    end_date: string | null;
+    is_recurring: boolean;
+    recurrence_day: string | null;
     time: string;
     location: string;
     address: string | null;

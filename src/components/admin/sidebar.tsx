@@ -9,6 +9,7 @@ import {
   MessageSquareQuote,
   GraduationCap,
   Images,
+  Tags,
   LogOut,
   Menu,
   X,
@@ -21,6 +22,7 @@ import { useState } from "react";
 const navItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/products", label: "Products", icon: Package },
+  { href: "/admin/categories", label: "Categories", icon: Tags },
   { href: "/admin/events", label: "Events", icon: CalendarDays },
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
   { href: "/admin/class", label: "Class Info", icon: GraduationCap },

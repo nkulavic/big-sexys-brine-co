@@ -1,8 +1,8 @@
 import { requireAuth } from "@/lib/supabase/auth-guard";
 import { createClient } from "@/lib/supabase/server";
-import { ProductForm } from "@/components/admin/product-form";
+import { CategoriesManager } from "./categories-manager";
 
-export default async function NewProductPage() {
+export default async function CategoriesPage() {
   await requireAuth();
   const supabase = await createClient();
 
@@ -12,14 +12,14 @@ export default async function NewProductPage() {
     .order("sort_order");
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h1 className="font-display text-2xl font-bold">New Product</h1>
+    <div>
+      <div className="mb-6">
+        <h1 className="text-2xl font-bold">Categories</h1>
         <p className="text-sm text-muted-foreground">
-          Add a new product to the catalog
+          Manage product categories. Drag to reorder.
         </p>
       </div>
-      <ProductForm categories={categories ?? []} />
+      <CategoriesManager categories={categories ?? []} />
     </div>
   );
 }

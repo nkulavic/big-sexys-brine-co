@@ -2,10 +2,11 @@ import { Container } from "@/components/layout/Container";
 import { getUpcomingEvents, getPastEvents } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
-import { Calendar, MapPin, Clock } from "lucide-react";
+import { Calendar, MapPin, Clock, Repeat } from "lucide-react";
 import Link from "next/link";
 import { EventJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
+import type { Event } from "@/types";
 
 export const metadata: Metadata = {
   title: "Find Us",
@@ -17,6 +18,69 @@ export const metadata: Metadata = {
     images: [{ url: "/images/logo/logo-transparent.png" }],
   },
 };
+
+function formatEventDate(event: Event): string {
+  const startDate = new Date(event.date);
+  if (event.is_recurring && event.recurrence_day && event.end_date) {
+    const endDate = new Date(event.end_date);
+    return `Every ${event.recurrence_day}, ${startDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+    })} – ${endDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })}`;
+  }
+  if (event.end_date) {
+    const endDate = new Date(event.end_date);
+    const sameMonth = startDate.getMonth() === endDate.getMonth() && startDate.getFullYear() === endDate.getFullYear();
+    if (sameMonth) {
+      return `${startDate.toLocaleDateString("en-US", {
+        month: "long",
+        day: "numeric",
+      })} – ${endDate.toLocaleDateString("en-US", {
+        day: "numeric",
+        year: "numeric",
+      })}`;
+    }
+    return `${startDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+    })} – ${endDate.toLocaleDateString("en-US", {
+      month: "long",
+      day: "numeric",
+      year: "numeric",
+    })}`;
+  }
+  return startDate.toLocaleDateString("en-US", {
+    weekday: "long",
+    month: "long",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+
+function formatEventDateBadge(event: Event): { top: string; bottom: string } {
+  const startDate = new Date(event.date);
+  if (event.is_recurring && event.recurrence_day) {
+    return {
+      top: event.recurrence_day.slice(0, 3).toUpperCase(),
+      bottom: startDate.toLocaleDateString("en-US", { month: "short" }) + " – " + (event.end_date ? new Date(event.end_date).toLocaleDateString("en-US", { month: "short" }) : ""),
+    };
+  }
+  if (event.end_date) {
+    const endDate = new Date(event.end_date);
+    return {
+      top: `${startDate.getDate()}–${endDate.getDate()}`,
+      bottom: startDate.toLocaleDateString("en-US", { month: "short" }),
+    };
+  }
+  return {
+    top: String(startDate.getDate()),
+    bottom: startDate.toLocaleDateString("en-US", { month: "short" }),
+  };
+}
 
 export default async function EventsPage() {
   const upcoming = await getUpcomingEvents();
@@ -49,66 +113,68 @@ export default async function EventsPage() {
           </h2>
           {upcoming.length > 0 ? (
             <div className="space-y-4">
-              {upcoming.map((event) => (
-                <div
-                  key={event.id}
-                  className="bg-card border border-brand-brown/20 rounded-xl p-6 flex flex-col sm:flex-row gap-6 hover:border-brand-orange/30 transition-colors"
-                >
-                  <div className="flex-shrink-0 text-center sm:text-left">
-                    <div className="inline-flex flex-col items-center bg-brand-orange/10 rounded-xl px-5 py-3">
-                      <span className="text-3xl font-bold text-brand-orange">
-                        {new Date(event.date).getDate()}
-                      </span>
-                      <span className="text-sm text-brand-orange/80 uppercase font-semibold">
-                        {new Date(event.date).toLocaleDateString("en-US", {
-                          month: "short",
-                        })}
-                      </span>
+              {upcoming.map((event) => {
+                const badge = formatEventDateBadge(event);
+                return (
+                  <div
+                    key={event.id}
+                    className="bg-card border border-brand-brown/20 rounded-xl p-6 flex flex-col sm:flex-row gap-6 hover:border-brand-orange/30 transition-colors"
+                  >
+                    <div className="flex-shrink-0 text-center sm:text-left">
+                      <div className="inline-flex flex-col items-center bg-brand-orange/10 rounded-xl px-5 py-3">
+                        <span className="text-3xl font-bold text-brand-orange">
+                          {badge.top}
+                        </span>
+                        <span className="text-sm text-brand-orange/80 uppercase font-semibold">
+                          {badge.bottom}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="flex-grow space-y-2">
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="font-display text-xl font-semibold text-brand-cream">
+                          {event.name}
+                        </h3>
+                        <Badge
+                          className={
+                            event.type === "festival"
+                              ? "bg-brand-orange/10 text-brand-orange border-brand-orange/20"
+                              : event.type === "class"
+                                ? "bg-brand-green/10 text-brand-green border-brand-green/20"
+                                : "bg-brand-gold/10 text-brand-gold border-brand-gold/20"
+                          }
+                        >
+                          {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
+                        </Badge>
+                        {event.is_recurring && (
+                          <Badge className="bg-brand-green/10 text-brand-green border-brand-green/20">
+                            <Repeat size={12} className="mr-1" />
+                            Recurring
+                          </Badge>
+                        )}
+                      </div>
+                      {event.description && (
+                        <p className="text-brand-cream/60">{event.description}</p>
+                      )}
+                      <div className="flex flex-wrap gap-4 text-sm text-brand-cream/50">
+                        <span className="flex items-center gap-1">
+                          <Calendar size={14} />
+                          {formatEventDate(event)}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <Clock size={14} />
+                          {event.time}
+                        </span>
+                        <span className="flex items-center gap-1">
+                          <MapPin size={14} />
+                          {event.location}
+                          {event.address && `, ${event.address}`}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                  <div className="flex-grow space-y-2">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <h3 className="font-display text-xl font-semibold text-brand-cream">
-                        {event.name}
-                      </h3>
-                      <Badge
-                        className={
-                          event.type === "festival"
-                            ? "bg-brand-orange/10 text-brand-orange border-brand-orange/20"
-                            : event.type === "class"
-                              ? "bg-brand-green/10 text-brand-green border-brand-green/20"
-                              : "bg-brand-gold/10 text-brand-gold border-brand-gold/20"
-                        }
-                      >
-                        {event.type.charAt(0).toUpperCase() + event.type.slice(1)}
-                      </Badge>
-                    </div>
-                    {event.description && (
-                      <p className="text-brand-cream/60">{event.description}</p>
-                    )}
-                    <div className="flex flex-wrap gap-4 text-sm text-brand-cream/50">
-                      <span className="flex items-center gap-1">
-                        <Calendar size={14} />
-                        {new Date(event.date).toLocaleDateString("en-US", {
-                          weekday: "long",
-                          month: "long",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <Clock size={14} />
-                        {event.time}
-                      </span>
-                      <span className="flex items-center gap-1">
-                        <MapPin size={14} />
-                        {event.location}
-                        {event.address && `, ${event.address}`}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           ) : (
             <div className="bg-card border border-brand-brown/20 rounded-xl p-12 text-center">
@@ -143,11 +209,13 @@ export default async function EventsPage() {
                   className="bg-card/50 border border-brand-brown/10 rounded-lg p-4 flex items-center gap-4"
                 >
                   <span className="text-sm text-brand-cream/40 w-28 shrink-0">
-                    {new Date(event.date).toLocaleDateString("en-US", {
-                      month: "short",
-                      day: "numeric",
-                      year: "numeric",
-                    })}
+                    {event.is_recurring && event.end_date
+                      ? `thru ${new Date(event.end_date).toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" })}`
+                      : new Date(event.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
                   </span>
                   <span className="text-brand-cream/50">{event.name}</span>
                   <Badge

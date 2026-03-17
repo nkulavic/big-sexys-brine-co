@@ -7,7 +7,8 @@ export interface Product {
   description: string;
   ingredients: string[];
   heat: number;
-  category: "Signature" | "Non-Spicy" | "Spicy" | "Garlic" | "Sweet Heat" | "Traditional" | "Specialty";
+  category: string;
+  categories?: string[];
   image: string;
   featured?: boolean;
 }
@@ -16,6 +17,9 @@ export interface Event {
   id: number;
   name: string;
   date: string;
+  end_date?: string | null;
+  is_recurring?: boolean;
+  recurrence_day?: string | null;
   time: string;
   location: string;
   address?: string;
