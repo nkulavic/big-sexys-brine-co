@@ -73,9 +73,48 @@ export async function getProductsByCategory(
 }
 
 export async function getProductCategories(): Promise<string[]> {
-  const products = await getProducts();
-  const categories = new Set(products.map((p) => p.category));
-  return ["All", ...Array.from(categories)];
+  if (!useSupabase) {
+    const products = await getProducts();
+    const categories = new Set(products.map((p) => p.category));
+    return ["All", ...Array.from(categories)];
+  }
+  const supabase = getSupabase();
+  const { data } = await supabase
+    .from("categories")
+    .select("name")
+    .order("sort_order");
+  return ["All", ...(data ?? []).map((c: { name: string }) => c.name)];
+}
+
+export async function getProductsByCategories(
+  categoryName: string
+): Promise<Product[]> {
+  if (categoryName === "All") return getProducts();
+  if (!useSupabase) {
+    const data = (await import("@/content/products.json")).default;
+    return (data as Product[]).filter((p) => p.category === categoryName);
+  }
+  const supabase = getSupabase();
+  // Get category id
+  const { data: cat } = await supabase
+    .from("categories")
+    .select("id")
+    .eq("name", categoryName)
+    .single();
+  if (!cat) return [];
+  // Get product ids in this category
+  const { data: pcs } = await supabase
+    .from("product_categories")
+    .select("product_id")
+    .eq("category_id", cat.id);
+  if (!pcs || pcs.length === 0) return [];
+  const productIds = pcs.map((pc: { product_id: number }) => pc.product_id);
+  const { data } = await supabase
+    .from("products")
+    .select("*")
+    .in("id", productIds)
+    .order("sort_order");
+  return (data ?? []).map(mapProduct);
 }
 
 // Events
@@ -97,13 +136,32 @@ export async function getEvents(): Promise<Event[]> {
 export async function getUpcomingEvents(): Promise<Event[]> {
   const events = await getEvents();
   const now = new Date();
-  return events.filter((e) => new Date(e.date) >= now);
+  return events.filter((e) => {
+    // For recurring events with an end_date, check if end_date is in the future
+    if (e.is_recurring && e.end_date) {
+      return new Date(e.end_date) >= now;
+    }
+    // For events with end_date (multi-day), check end_date
+    if (e.end_date) {
+      return new Date(e.end_date) >= now;
+    }
+    // Otherwise check the single date
+    return new Date(e.date) >= now;
+  });
 }
 
 export async function getPastEvents(): Promise<Event[]> {
   const events = await getEvents();
   const now = new Date();
-  return events.filter((e) => new Date(e.date) < now);
+  return events.filter((e) => {
+    if (e.is_recurring && e.end_date) {
+      return new Date(e.end_date) < now;
+    }
+    if (e.end_date) {
+      return new Date(e.end_date) < now;
+    }
+    return new Date(e.date) < now;
+  });
 }
 
 // Class Info

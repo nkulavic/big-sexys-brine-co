@@ -1,6 +1,15 @@
 -- Big Sexy's Brine Co. — Supabase Schema
 -- Run this in the Supabase SQL Editor to set up your database
 
+-- Categories table
+CREATE TABLE IF NOT EXISTS categories (
+  id SERIAL PRIMARY KEY,
+  name TEXT UNIQUE NOT NULL,
+  slug TEXT UNIQUE NOT NULL,
+  sort_order INTEGER NOT NULL DEFAULT 0,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
 -- Products table
 CREATE TABLE IF NOT EXISTS products (
   id SERIAL PRIMARY KEY,
@@ -11,7 +20,7 @@ CREATE TABLE IF NOT EXISTS products (
   description TEXT NOT NULL,
   ingredients TEXT[] NOT NULL DEFAULT '{}',
   heat INTEGER NOT NULL DEFAULT 0,
-  category TEXT NOT NULL CHECK (category IN ('Signature', 'Non-Spicy', 'Spicy', 'Garlic', 'Sweet Heat', 'Traditional', 'Specialty')),
+  category TEXT NOT NULL DEFAULT 'Signature',
   image_url TEXT,
   featured BOOLEAN NOT NULL DEFAULT FALSE,
   sort_order INTEGER NOT NULL DEFAULT 0,
@@ -19,11 +28,21 @@ CREATE TABLE IF NOT EXISTS products (
   updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
 );
 
+-- Product-Categories junction table (many-to-many)
+CREATE TABLE IF NOT EXISTS product_categories (
+  product_id INTEGER NOT NULL REFERENCES products(id) ON DELETE CASCADE,
+  category_id INTEGER NOT NULL REFERENCES categories(id) ON DELETE CASCADE,
+  PRIMARY KEY (product_id, category_id)
+);
+
 -- Events table
 CREATE TABLE IF NOT EXISTS events (
   id SERIAL PRIMARY KEY,
   name TEXT NOT NULL,
   date DATE NOT NULL,
+  end_date DATE,
+  is_recurring BOOLEAN NOT NULL DEFAULT FALSE,
+  recurrence_day TEXT,
   time TEXT NOT NULL,
   location TEXT NOT NULL,
   address TEXT,
@@ -78,24 +97,40 @@ CREATE TRIGGER products_updated_at
   FOR EACH ROW
   EXECUTE FUNCTION update_updated_at();
 
+-- Indexes
+CREATE INDEX IF NOT EXISTS idx_product_categories_product ON product_categories(product_id);
+CREATE INDEX IF NOT EXISTS idx_product_categories_category ON product_categories(category_id);
+CREATE INDEX IF NOT EXISTS idx_events_is_recurring ON events(is_recurring);
+
 -- Row Level Security
+ALTER TABLE categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE products ENABLE ROW LEVEL SECURITY;
+ALTER TABLE product_categories ENABLE ROW LEVEL SECURITY;
 ALTER TABLE events ENABLE ROW LEVEL SECURITY;
 ALTER TABLE testimonials ENABLE ROW LEVEL SECURITY;
 ALTER TABLE class_info ENABLE ROW LEVEL SECURITY;
 ALTER TABLE gallery_images ENABLE ROW LEVEL SECURITY;
 
 -- Public read access (for the website)
+CREATE POLICY "Public read categories" ON categories FOR SELECT USING (true);
 CREATE POLICY "Public read products" ON products FOR SELECT USING (true);
+CREATE POLICY "Public read product_categories" ON product_categories FOR SELECT USING (true);
 CREATE POLICY "Public read events" ON events FOR SELECT USING (true);
 CREATE POLICY "Public read testimonials" ON testimonials FOR SELECT USING (true);
 CREATE POLICY "Public read class_info" ON class_info FOR SELECT USING (true);
 CREATE POLICY "Public read gallery_images" ON gallery_images FOR SELECT USING (true);
 
 -- Authenticated users get full CRUD
+CREATE POLICY "Admin insert categories" ON categories FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Admin update categories" ON categories FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
+CREATE POLICY "Admin delete categories" ON categories FOR DELETE TO authenticated USING (true);
+
 CREATE POLICY "Admin insert products" ON products FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Admin update products" ON products FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin delete products" ON products FOR DELETE TO authenticated USING (true);
+
+CREATE POLICY "Admin insert product_categories" ON product_categories FOR INSERT TO authenticated WITH CHECK (true);
+CREATE POLICY "Admin delete product_categories" ON product_categories FOR DELETE TO authenticated USING (true);
 
 CREATE POLICY "Admin insert events" ON events FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Admin update events" ON events FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
@@ -111,6 +146,17 @@ CREATE POLICY "Admin insert class_info" ON class_info FOR INSERT TO authenticate
 CREATE POLICY "Admin insert gallery_images" ON gallery_images FOR INSERT TO authenticated WITH CHECK (true);
 CREATE POLICY "Admin update gallery_images" ON gallery_images FOR UPDATE TO authenticated USING (true) WITH CHECK (true);
 CREATE POLICY "Admin delete gallery_images" ON gallery_images FOR DELETE TO authenticated USING (true);
+
+-- Default categories
+INSERT INTO categories (name, slug, sort_order) VALUES
+  ('Signature', 'signature', 0),
+  ('Non-Spicy', 'non-spicy', 1),
+  ('Spicy', 'spicy', 2),
+  ('Garlic', 'garlic', 3),
+  ('Sweet Heat', 'sweet-heat', 4),
+  ('Traditional', 'traditional', 5),
+  ('Specialty', 'specialty', 6)
+ON CONFLICT (name) DO NOTHING;
 
 -- Storage bucket for images
 -- Run this separately in the Supabase dashboard or via the API:
