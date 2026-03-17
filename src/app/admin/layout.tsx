@@ -1,20 +1,22 @@
+"use client";
+
+import { usePathname } from "next/navigation";
 import { AdminSidebar } from "@/components/admin/sidebar";
 import { Toaster } from "sonner";
-
-export const metadata = {
-  title: "Admin | Big Sexy's Brine Co.",
-};
 
 export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const pathname = usePathname();
+  const isLoginPage = pathname === "/admin/login";
+
   return (
     <div className="min-h-screen bg-background">
-      <AdminSidebar />
-      <main className="lg:pl-64">
-        <div className="p-6 lg:p-8">{children}</div>
+      {!isLoginPage && <AdminSidebar />}
+      <main className={isLoginPage ? "" : "lg:pl-64"}>
+        <div className={isLoginPage ? "" : "p-6 lg:p-8"}>{children}</div>
       </main>
       <Toaster
         position="top-right"
