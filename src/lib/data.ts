@@ -1,11 +1,17 @@
-import { createClient } from "@/lib/supabase/server";
+import { createClient as createSupabaseClient } from "@supabase/supabase-js";
 import type { Product, Event, ClassInfo, Testimonial } from "@/types";
 
 // Fallback to JSON files if Supabase is not configured
 const useSupabase = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
 
-async function getSupabase() {
-  return await createClient();
+// Use a direct Supabase client (no cookies) for data fetching.
+// This avoids the "cookies was called outside a request scope" error
+// during static generation (generateStaticParams / generateMetadata).
+function getSupabase() {
+  return createSupabaseClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_DEFAULT_KEY!
+  );
 }
 
 // Products
@@ -14,7 +20,7 @@ export async function getProducts(): Promise<Product[]> {
     const data = (await import("@/content/products.json")).default;
     return data as Product[];
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase.from("products").select("*").order("id");
   return (data ?? []).map(mapProduct);
 }
@@ -26,7 +32,7 @@ export async function getProductBySlug(
     const data = (await import("@/content/products.json")).default;
     return (data as Product[]).find((p) => p.slug === slug);
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("products")
     .select("*")
@@ -40,7 +46,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
     const data = (await import("@/content/products.json")).default;
     return (data as Product[]).filter((p) => p.featured);
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("products")
     .select("*")
@@ -57,7 +63,7 @@ export async function getProductsByCategory(
     const data = (await import("@/content/products.json")).default;
     return (data as Product[]).filter((p) => p.category === category);
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("products")
     .select("*")
@@ -80,7 +86,7 @@ export async function getEvents(): Promise<Event[]> {
       (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime()
     );
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("events")
     .select("*")
@@ -106,7 +112,7 @@ export async function getClassInfo(): Promise<ClassInfo> {
     const data = (await import("@/content/class.json")).default;
     return data as ClassInfo;
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("class_info")
     .select("*")
@@ -133,7 +139,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     const data = (await import("@/content/testimonials.json")).default;
     return data as Testimonial[];
   }
-  const supabase = await getSupabase();
+  const supabase = getSupabase();
   const { data } = await supabase
     .from("testimonials")
     .select("*")
