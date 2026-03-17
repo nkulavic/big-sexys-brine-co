@@ -61,6 +61,21 @@ export async function deleteProduct(id: number) {
   revalidatePath("/");
 }
 
+export async function updateProductOrder(items: { id: number; sort_order: number }[]) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  for (const item of items) {
+    const { error } = await supabase
+      .from("products")
+      .update({ sort_order: item.sort_order })
+      .eq("id", item.id);
+    if (error) throw new Error(error.message);
+  }
+  revalidatePath("/admin/products");
+  revalidatePath("/products");
+  revalidatePath("/");
+}
+
 // Events
 export async function createEvent(data: {
   name: string;
@@ -108,6 +123,20 @@ export async function deleteEvent(id: number) {
   revalidatePath("/events");
 }
 
+export async function updateEventOrder(items: { id: number; sort_order: number }[]) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  for (const item of items) {
+    const { error } = await supabase
+      .from("events")
+      .update({ sort_order: item.sort_order })
+      .eq("id", item.id);
+    if (error) throw new Error(error.message);
+  }
+  revalidatePath("/admin/events");
+  revalidatePath("/events");
+}
+
 // Testimonials
 export async function createTestimonial(data: {
   quote: string;
@@ -143,6 +172,20 @@ export async function deleteTestimonial(id: number) {
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").delete().eq("id", id);
   if (error) throw new Error(error.message);
+  revalidatePath("/admin/testimonials");
+  revalidatePath("/");
+}
+
+export async function updateTestimonialOrder(items: { id: number; sort_order: number }[]) {
+  await requireAuthAction();
+  const supabase = await createClient();
+  for (const item of items) {
+    const { error } = await supabase
+      .from("testimonials")
+      .update({ sort_order: item.sort_order })
+      .eq("id", item.id);
+    if (error) throw new Error(error.message);
+  }
   revalidatePath("/admin/testimonials");
   revalidatePath("/");
 }

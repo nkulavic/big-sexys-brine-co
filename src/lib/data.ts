@@ -21,7 +21,7 @@ export async function getProducts(): Promise<Product[]> {
     return data as Product[];
   }
   const supabase = getSupabase();
-  const { data } = await supabase.from("products").select("*").order("id");
+  const { data } = await supabase.from("products").select("*").order("sort_order");
   return (data ?? []).map(mapProduct);
 }
 
@@ -51,7 +51,7 @@ export async function getFeaturedProducts(): Promise<Product[]> {
     .from("products")
     .select("*")
     .eq("featured", true)
-    .order("id");
+    .order("sort_order");
   return (data ?? []).map(mapProduct);
 }
 
@@ -68,7 +68,7 @@ export async function getProductsByCategory(
     .from("products")
     .select("*")
     .eq("category", category)
-    .order("id");
+    .order("sort_order");
   return (data ?? []).map(mapProduct);
 }
 
@@ -90,7 +90,7 @@ export async function getEvents(): Promise<Event[]> {
   const { data } = await supabase
     .from("events")
     .select("*")
-    .order("date", { ascending: true });
+    .order("sort_order");
   return (data ?? []) as Event[];
 }
 
@@ -143,7 +143,7 @@ export async function getTestimonials(): Promise<Testimonial[]> {
   const { data } = await supabase
     .from("testimonials")
     .select("*")
-    .order("id");
+    .order("sort_order");
   return (data ?? []) as Testimonial[];
 }
 
