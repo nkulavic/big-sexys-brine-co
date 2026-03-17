@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -21,6 +22,7 @@ const typeBadgeColors: Record<string, string> = {
 };
 
 export default async function AdminEventsPage() {
+  await requireAuth();
   const supabase = await createClient();
   const { data: events } = await supabase
     .from("events")

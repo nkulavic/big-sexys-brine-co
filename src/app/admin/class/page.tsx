@@ -1,7 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { ClassForm } from "@/components/admin/class-form";
 
 export default async function AdminClassPage() {
+  await requireAuth();
   const supabase = await createClient();
   const { data: classInfo } = await supabase
     .from("class_info")

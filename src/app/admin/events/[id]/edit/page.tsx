@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { EventForm } from "@/components/admin/event-form";
 import { notFound } from "next/navigation";
 
@@ -8,6 +9,7 @@ export default async function EditEventPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  await requireAuth();
   const supabase = await createClient();
   const { data: event } = await supabase
     .from("events")

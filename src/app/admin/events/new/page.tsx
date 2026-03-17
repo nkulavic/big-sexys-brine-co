@@ -1,6 +1,9 @@
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { EventForm } from "@/components/admin/event-form";
 
-export default function NewEventPage() {
+export default async function NewEventPage() {
+  await requireAuth();
+
   return (
     <div className="space-y-6">
       <div>

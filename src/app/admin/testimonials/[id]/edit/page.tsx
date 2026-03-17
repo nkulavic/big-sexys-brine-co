@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { TestimonialForm } from "@/components/admin/testimonial-form";
 import { notFound } from "next/navigation";
 
@@ -8,6 +9,7 @@ export default async function EditTestimonialPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
+  await requireAuth();
   const supabase = await createClient();
   const { data: testimonial } = await supabase
     .from("testimonials")

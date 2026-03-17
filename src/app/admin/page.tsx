@@ -1,9 +1,11 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, CalendarDays, MessageSquareQuote, Images } from "lucide-react";
 import Link from "next/link";
 
 export default async function AdminDashboardPage() {
+  await requireAuth();
   const supabase = await createClient();
 
   const [

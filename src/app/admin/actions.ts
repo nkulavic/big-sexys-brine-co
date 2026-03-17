@@ -1,6 +1,7 @@
 "use server";
 
 import { createClient } from "@/lib/supabase/server";
+import { requireAuthAction } from "@/lib/supabase/auth-guard";
 import { revalidatePath } from "next/cache";
 
 // Products
@@ -16,6 +17,7 @@ export async function createProduct(data: {
   image_url: string | null;
   featured: boolean;
 }) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("products").insert(data);
   if (error) throw new Error(error.message);
@@ -39,6 +41,7 @@ export async function updateProduct(
     featured: boolean;
   }
 ) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("products").update(data).eq("id", id);
   if (error) throw new Error(error.message);
@@ -49,6 +52,7 @@ export async function updateProduct(
 }
 
 export async function deleteProduct(id: number) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) throw new Error(error.message);
@@ -67,6 +71,7 @@ export async function createEvent(data: {
   type: string;
   description: string | null;
 }) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("events").insert(data);
   if (error) throw new Error(error.message);
@@ -86,6 +91,7 @@ export async function updateEvent(
     description: string | null;
   }
 ) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("events").update(data).eq("id", id);
   if (error) throw new Error(error.message);
@@ -94,6 +100,7 @@ export async function updateEvent(
 }
 
 export async function deleteEvent(id: number) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("events").delete().eq("id", id);
   if (error) throw new Error(error.message);
@@ -107,6 +114,7 @@ export async function createTestimonial(data: {
   author: string;
   product: string | null;
 }) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").insert(data);
   if (error) throw new Error(error.message);
@@ -122,6 +130,7 @@ export async function updateTestimonial(
     product: string | null;
   }
 ) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").update(data).eq("id", id);
   if (error) throw new Error(error.message);
@@ -130,6 +139,7 @@ export async function updateTestimonial(
 }
 
 export async function deleteTestimonial(id: number) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").delete().eq("id", id);
   if (error) throw new Error(error.message);
@@ -147,6 +157,7 @@ export async function updateClassInfo(data: {
   what_you_get: string[];
   max_students: number;
 }) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("class_info").update(data).eq("id", 1);
   if (error) throw new Error(error.message);
@@ -160,6 +171,7 @@ export async function createGalleryImage(data: {
   alt: string | null;
   sort_order: number;
 }) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("gallery_images").insert(data);
   if (error) throw new Error(error.message);
@@ -168,6 +180,7 @@ export async function createGalleryImage(data: {
 }
 
 export async function updateGalleryOrder(items: { id: number; sort_order: number }[]) {
+  await requireAuthAction();
   const supabase = await createClient();
   for (const item of items) {
     const { error } = await supabase
@@ -181,6 +194,7 @@ export async function updateGalleryOrder(items: { id: number; sort_order: number
 }
 
 export async function deleteGalleryImage(id: number) {
+  await requireAuthAction();
   const supabase = await createClient();
   const { error } = await supabase.from("gallery_images").delete().eq("id", id);
   if (error) throw new Error(error.message);

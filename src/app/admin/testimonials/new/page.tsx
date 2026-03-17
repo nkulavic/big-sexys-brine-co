@@ -1,6 +1,9 @@
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { TestimonialForm } from "@/components/admin/testimonial-form";
 
-export default function NewTestimonialPage() {
+export default async function NewTestimonialPage() {
+  await requireAuth();
+
   return (
     <div className="space-y-6">
       <div>

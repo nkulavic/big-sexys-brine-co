@@ -1,7 +1,9 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import { GalleryManager } from "@/components/admin/gallery-manager";
 
 export default async function AdminGalleryPage() {
+  await requireAuth();
   const supabase = await createClient();
   const { data: images } = await supabase
     .from("gallery_images")

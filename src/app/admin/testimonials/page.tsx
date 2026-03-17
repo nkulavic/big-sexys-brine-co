@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -6,6 +7,7 @@ import { Plus, Pencil, Quote } from "lucide-react";
 import { TestimonialDeleteButton } from "./testimonial-delete-button";
 
 export default async function AdminTestimonialsPage() {
+  await requireAuth();
   const supabase = await createClient();
   const { data: testimonials } = await supabase
     .from("testimonials")

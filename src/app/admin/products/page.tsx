@@ -1,4 +1,5 @@
 import { createClient } from "@/lib/supabase/server";
+import { requireAuth } from "@/lib/supabase/auth-guard";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -14,6 +15,7 @@ import { Plus, Pencil } from "lucide-react";
 import { ProductDeleteButton } from "./product-delete-button";
 
 export default async function AdminProductsPage() {
+  await requireAuth();
   const supabase = await createClient();
   const { data: products } = await supabase
     .from("products")
