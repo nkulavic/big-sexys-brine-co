@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { createClient } from "@/lib/supabase/client";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -39,10 +40,17 @@ export default function AdminLoginPage() {
   return (
     <div className="flex min-h-screen items-center justify-center bg-background p-4 lg:pl-0">
       <Card className="w-full max-w-sm">
-        <CardHeader className="text-center">
-          <h1 className="font-display text-2xl font-bold text-brand-orange">
-            Big Sexy&apos;s
-          </h1>
+        <CardHeader className="text-center space-y-4">
+          <div className="flex justify-center">
+            <Image
+              src="/images/logo/logo-transparent.png"
+              alt="Big Sexy's Brine Co."
+              width={160}
+              height={160}
+              className="rounded-full"
+              priority
+            />
+          </div>
           <CardTitle className="text-lg">Admin Login</CardTitle>
         </CardHeader>
         <CardContent>
