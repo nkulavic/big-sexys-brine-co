@@ -11,6 +11,7 @@ export default async function EditProductPage({
   const { id } = await params;
   await requireAuth();
   const supabase = await createClient();
+
   const { data: product } = await supabase
     .from("products")
     .select("*")
@@ -18,6 +19,20 @@ export default async function EditProductPage({
     .single();
 
   if (!product) notFound();
+
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("*")
+    .order("sort_order");
+
+  const { data: productCategories } = await supabase
+    .from("product_categories")
+    .select("category_id")
+    .eq("product_id", id);
+
+  const initialCategoryIds = (productCategories ?? []).map(
+    (pc: { category_id: number }) => pc.category_id
+  );
 
   return (
     <div className="space-y-6">
@@ -27,7 +42,11 @@ export default async function EditProductPage({
           Update {product.name}
         </p>
       </div>
-      <ProductForm product={product} />
+      <ProductForm
+        product={product}
+        categories={categories ?? []}
+        initialCategoryIds={initialCategoryIds}
+      />
     </div>
   );
 }

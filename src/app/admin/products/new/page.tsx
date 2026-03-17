@@ -1,8 +1,15 @@
 import { requireAuth } from "@/lib/supabase/auth-guard";
+import { createClient } from "@/lib/supabase/server";
 import { ProductForm } from "@/components/admin/product-form";
 
 export default async function NewProductPage() {
   await requireAuth();
+  const supabase = await createClient();
+
+  const { data: categories } = await supabase
+    .from("categories")
+    .select("*")
+    .order("sort_order");
 
   return (
     <div className="space-y-6">
@@ -12,7 +19,7 @@ export default async function NewProductPage() {
           Add a new product to the catalog
         </p>
       </div>
-      <ProductForm />
+      <ProductForm categories={categories ?? []} />
     </div>
   );
 }

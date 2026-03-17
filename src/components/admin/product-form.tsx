@@ -6,23 +6,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Select } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { ImageUpload } from "@/components/admin/image-upload";
 import { SortableFormList } from "@/components/admin/sortable-form-list";
 import { createProduct, updateProduct } from "@/app/admin/actions";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
-const categories = [
-  "Signature",
-  "Non-Spicy",
-  "Spicy",
-  "Garlic",
-  "Sweet Heat",
-  "Traditional",
-  "Specialty",
-];
+interface Category {
+  id: number;
+  name: string;
+  slug: string;
+  sort_order: number;
+}
 
 interface ProductFormProps {
   product?: {
@@ -38,9 +35,15 @@ interface ProductFormProps {
     image_url: string | null;
     featured: boolean;
   };
+  categories: Category[];
+  initialCategoryIds?: number[];
 }
 
-export function ProductForm({ product }: ProductFormProps) {
+export function ProductForm({
+  product,
+  categories,
+  initialCategoryIds = [],
+}: ProductFormProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
   const [name, setName] = useState(product?.name ?? "");
@@ -52,7 +55,8 @@ export function ProductForm({ product }: ProductFormProps) {
     product?.ingredients ?? [""]
   );
   const [heat, setHeat] = useState(product?.heat ?? 0);
-  const [category, setCategory] = useState(product?.category ?? categories[0]);
+  const [selectedCategoryIds, setSelectedCategoryIds] =
+    useState<number[]>(initialCategoryIds);
   const [imageUrl, setImageUrl] = useState<string | null>(
     product?.image_url ?? null
   );
@@ -72,9 +76,21 @@ export function ProductForm({ product }: ProductFormProps) {
     }
   };
 
+  const toggleCategory = (id: number) => {
+    setSelectedCategoryIds((prev) =>
+      prev.includes(id) ? prev.filter((cid) => cid !== id) : [...prev, id]
+    );
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
+
+    // Use the first selected category name as the primary category (for backward compat)
+    const primaryCategory =
+      categories.find((c) => selectedCategoryIds.includes(c.id))?.name ??
+      categories[0]?.name ??
+      "Signature";
 
     const data = {
       name,
@@ -84,7 +100,8 @@ export function ProductForm({ product }: ProductFormProps) {
       description,
       ingredients: ingredients.filter((i) => i.trim() !== ""),
       heat,
-      category,
+      category: primaryCategory,
+      category_ids: selectedCategoryIds,
       image_url: imageUrl,
       featured,
     };
@@ -136,31 +153,44 @@ export function ProductForm({ product }: ProductFormProps) {
             </div>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="space-y-2">
-              <Label htmlFor="size">Size</Label>
-              <Input
-                id="size"
-                value={size}
-                onChange={(e) => setSize(e.target.value)}
-                placeholder='e.g., 32oz (1QT)'
-                required
-              />
+          <div className="space-y-2">
+            <Label htmlFor="size">Size</Label>
+            <Input
+              id="size"
+              value={size}
+              onChange={(e) => setSize(e.target.value)}
+              placeholder='e.g., 32oz (1QT)'
+              required
+            />
+          </div>
+
+          <div className="space-y-2">
+            <Label>Categories</Label>
+            <p className="text-xs text-muted-foreground">
+              Select one or more categories for this product.
+            </p>
+            <div className="flex flex-wrap gap-2 mt-1">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  type="button"
+                  onClick={() => toggleCategory(cat.id)}
+                  className={cn(
+                    "rounded-full px-3 py-1 text-sm font-medium border transition-colors",
+                    selectedCategoryIds.includes(cat.id)
+                      ? "bg-brand-orange text-white border-brand-orange"
+                      : "bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground"
+                  )}
+                >
+                  {cat.name}
+                </button>
+              ))}
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="category">Category</Label>
-              <Select
-                id="category"
-                value={category}
-                onChange={(e) => setCategory(e.target.value)}
-              >
-                {categories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </Select>
-            </div>
+            {selectedCategoryIds.length === 0 && (
+              <p className="text-xs text-destructive mt-1">
+                Please select at least one category.
+              </p>
+            )}
           </div>
 
           <div className="space-y-2">
@@ -240,7 +270,7 @@ export function ProductForm({ product }: ProductFormProps) {
       </Card>
 
       <div className="flex gap-3">
-        <Button type="submit" disabled={saving}>
+        <Button type="submit" disabled={saving || selectedCategoryIds.length === 0}>
           {saving ? "Saving..." : product ? "Update Product" : "Create Product"}
         </Button>
         <Button
