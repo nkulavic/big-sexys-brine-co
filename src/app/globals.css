@@ -93,6 +93,19 @@
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
   }
+  button,
+  [role="button"],
+  a,
+  select,
+  summary,
+  [type="button"],
+  [type="reset"],
+  [type="submit"],
+  [type="checkbox"],
+  [type="radio"],
+  label[for] {
+    cursor: pointer;
+  }
 }
 
 @layer utilities {
