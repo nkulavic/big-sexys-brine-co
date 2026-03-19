@@ -108,6 +108,15 @@
   }
 }
 
+/* Admin toolbar offset — pushes fixed header and body content down */
+body.admin-toolbar-active {
+  padding-top: 2.5rem; /* 40px = toolbar height */
+}
+body.admin-toolbar-active > header,
+body.admin-toolbar-active header {
+  top: 2.5rem !important;
+}
+
 @layer utilities {
   .texture-grain {
     position: relative;
