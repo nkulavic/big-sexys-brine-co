@@ -29,6 +29,7 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: "Big Sexy's Brine Co. <noreply@bigsexysbrine.co>",
         to: process.env.CONTACT_EMAIL || "bigsexysbrineco@gmail.com",
+        cc: [email],
         subject: `[Website] ${subject} - from ${name}`,
         text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
         replyTo: email,

@@ -28,6 +28,7 @@ export async function POST(request: NextRequest) {
       await resend.emails.send({
         from: "Big Sexy's Brine Co. <noreply@bigsexysbrine.co>",
         to: process.env.CONTACT_EMAIL || "bigsexysbrineco@gmail.com",
+        cc: [email],
         subject: `[Pickle Pun Contest] Entry from ${name}`,
         text: `New pickle pun contest entry!\n\nName: ${name}\nEmail: ${email}\n\nPickle Pun:\n${pun}`,
         replyTo: email,
