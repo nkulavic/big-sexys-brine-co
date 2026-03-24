@@ -4,6 +4,7 @@ import { getProducts, getProductBySlug } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -71,20 +72,13 @@ export default async function ProductDetailPage({
           </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-          {/* Product Image */}
-          <div className="aspect-square relative rounded-2xl overflow-hidden border border-brand-brown/20 bg-card">
-            <Image
-              src={product.image}
-              alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 1024px) 100vw, 50vw"
-              priority
-            />
-            <Badge className="absolute top-4 right-4 bg-brand-orange text-white text-sm border-0 z-10">
-              {product.size}
-            </Badge>
-          </div>
+          {/* Product Image(s) */}
+          <ProductImageCarousel
+            images={product.images ?? []}
+            productName={product.name}
+            productSize={product.size}
+            fallbackImage={product.image}
+          />
 
           {/* Product Details */}
           <div className="space-y-6">

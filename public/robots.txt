@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://bigsexysbrineco.com
+Host: https://bigsexysbrine.co
 
 # Sitemaps
-Sitemap: https://bigsexysbrineco.com/sitemap.xml
+Sitemap: https://bigsexysbrine.co/sitemap.xml

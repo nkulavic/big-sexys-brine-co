@@ -8,7 +8,10 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { ImageUpload } from "@/components/admin/image-upload";
+import {
+  ProductImageGallery,
+  type ProductImage,
+} from "@/components/admin/product-image-gallery";
 import { SortableFormList } from "@/components/admin/sortable-form-list";
 import { createProduct, updateProduct } from "@/app/admin/actions";
 import { toast } from "sonner";
@@ -37,12 +40,14 @@ interface ProductFormProps {
   };
   categories: Category[];
   initialCategoryIds?: number[];
+  initialImages?: ProductImage[];
 }
 
 export function ProductForm({
   product,
   categories,
   initialCategoryIds = [],
+  initialImages = [],
 }: ProductFormProps) {
   const router = useRouter();
   const [saving, setSaving] = useState(false);
@@ -57,9 +62,7 @@ export function ProductForm({
   const [heat, setHeat] = useState(product?.heat ?? 0);
   const [selectedCategoryIds, setSelectedCategoryIds] =
     useState<number[]>(initialCategoryIds);
-  const [imageUrl, setImageUrl] = useState<string | null>(
-    product?.image_url ?? null
-  );
+  const [images, setImages] = useState<ProductImage[]>(initialImages);
   const [featured, setFeatured] = useState(product?.featured ?? false);
 
   const generateSlug = (name: string) => {
@@ -92,6 +95,10 @@ export function ProductForm({
       categories[0]?.name ??
       "Signature";
 
+    // Get primary image URL from gallery
+    const primaryImage =
+      images.find((img) => img.is_primary) ?? images[0] ?? null;
+
     const data = {
       name,
       slug,
@@ -102,8 +109,14 @@ export function ProductForm({
       heat,
       category: primaryCategory,
       category_ids: selectedCategoryIds,
-      image_url: imageUrl,
+      image_url: primaryImage?.url ?? null,
       featured,
+      images: images.map((img) => ({
+        url: img.url,
+        alt: img.alt,
+        sort_order: img.sort_order,
+        is_primary: img.is_primary,
+      })),
     };
 
     try {
@@ -176,7 +189,7 @@ export function ProductForm({
                   type="button"
                   onClick={() => toggleCategory(cat.id)}
                   className={cn(
-                    "rounded-full px-3 py-1 text-sm font-medium border transition-colors",
+                    "rounded-full px-3 py-1 text-sm font-medium border transition-colors cursor-pointer",
                     selectedCategoryIds.includes(cat.id)
                       ? "bg-brand-orange text-white border-brand-orange"
                       : "bg-transparent text-muted-foreground border-border hover:border-foreground hover:text-foreground"
@@ -250,22 +263,14 @@ export function ProductForm({
 
       <Card>
         <CardHeader>
-          <CardTitle>Product Image</CardTitle>
+          <CardTitle>Product Images</CardTitle>
+          <p className="text-sm text-muted-foreground">
+            Upload multiple images for this product. Drag to reorder. The primary
+            image will be used as the main display image.
+          </p>
         </CardHeader>
         <CardContent>
-          <ImageUpload value={imageUrl} onChange={setImageUrl} />
-          <div className="mt-2">
-            <Label htmlFor="image_url_manual" className="text-xs text-muted-foreground">
-              Or enter URL manually
-            </Label>
-            <Input
-              id="image_url_manual"
-              value={imageUrl ?? ""}
-              onChange={(e) => setImageUrl(e.target.value || null)}
-              placeholder="/images/products/my-product.jpg"
-              className="mt-1"
-            />
-          </div>
+          <ProductImageGallery images={images} onChange={setImages} />
         </CardContent>
       </Card>
 

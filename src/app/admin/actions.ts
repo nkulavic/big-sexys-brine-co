@@ -87,16 +87,25 @@ export async function createProduct(data: {
   category_ids: number[];
   image_url: string | null;
   featured: boolean;
+  images?: { url: string; alt: string | null; sort_order: number; is_primary: boolean }[];
 }) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { category_ids, ...productData } = data;
+  const { category_ids, images, ...productData } = data;
+
+  // If we have gallery images, use the primary image as image_url
+  if (images && images.length > 0) {
+    const primary = images.find((img) => img.is_primary) ?? images[0];
+    productData.image_url = primary.url;
+  }
+
   const { data: inserted, error } = await supabase
     .from("products")
     .insert(productData)
     .select("id")
     .single();
   if (error) throw new Error(error.message);
+
   // Insert category associations
   if (category_ids.length > 0) {
     const { error: catError } = await supabase
@@ -104,6 +113,21 @@ export async function createProduct(data: {
       .insert(category_ids.map((cid) => ({ product_id: inserted.id, category_id: cid })));
     if (catError) throw new Error(catError.message);
   }
+
+  // Insert product images
+  if (images && images.length > 0) {
+    const { error: imgError } = await supabase.from("product_images").insert(
+      images.map((img) => ({
+        product_id: inserted.id,
+        url: img.url,
+        alt: img.alt,
+        sort_order: img.sort_order,
+        is_primary: img.is_primary,
+      }))
+    );
+    if (imgError) throw new Error(imgError.message);
+  }
+
   revalidatePath("/admin/products");
   revalidatePath("/products");
   revalidatePath("/");
@@ -123,13 +147,22 @@ export async function updateProduct(
     category_ids: number[];
     image_url: string | null;
     featured: boolean;
+    images?: { url: string; alt: string | null; sort_order: number; is_primary: boolean }[];
   }
 ) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { category_ids, ...productData } = data;
+  const { category_ids, images, ...productData } = data;
+
+  // If we have gallery images, use the primary image as image_url
+  if (images && images.length > 0) {
+    const primary = images.find((img) => img.is_primary) ?? images[0];
+    productData.image_url = primary.url;
+  }
+
   const { error } = await supabase.from("products").update(productData).eq("id", id);
   if (error) throw new Error(error.message);
+
   // Replace category associations
   await supabase.from("product_categories").delete().eq("product_id", id);
   if (category_ids.length > 0) {
@@ -138,6 +171,24 @@ export async function updateProduct(
       .insert(category_ids.map((cid) => ({ product_id: id, category_id: cid })));
     if (catError) throw new Error(catError.message);
   }
+
+  // Replace product images
+  if (images !== undefined) {
+    await supabase.from("product_images").delete().eq("product_id", id);
+    if (images.length > 0) {
+      const { error: imgError } = await supabase.from("product_images").insert(
+        images.map((img) => ({
+          product_id: id,
+          url: img.url,
+          alt: img.alt,
+          sort_order: img.sort_order,
+          is_primary: img.is_primary,
+        }))
+      );
+      if (imgError) throw new Error(imgError.message);
+    }
+  }
+
   revalidatePath("/admin/products");
   revalidatePath("/products");
   revalidatePath(`/products/${data.slug}`);
@@ -147,6 +198,7 @@ export async function updateProduct(
 export async function deleteProduct(id: number) {
   await requireAuthAction();
   const supabase = await createClient();
+  // product_images will cascade delete due to ON DELETE CASCADE
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/products");

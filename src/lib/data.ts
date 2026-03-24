@@ -1,5 +1,5 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
-import type { Product, Event, ClassInfo, Testimonial } from "@/types";
+import type { Product, ProductImage, Event, ClassInfo, Testimonial } from "@/types";
 
 // Fallback to JSON files if Supabase is not configured
 const useSupabase = !!process.env.NEXT_PUBLIC_SUPABASE_URL;
@@ -22,7 +22,34 @@ export async function getProducts(): Promise<Product[]> {
   }
   const supabase = getSupabase();
   const { data } = await supabase.from("products").select("*").order("sort_order");
-  return (data ?? []).map(mapProduct);
+  const products = (data ?? []).map(mapProduct);
+  // Fetch all product images in one query
+  const productIds = products.map((p) => p.id);
+  if (productIds.length > 0) {
+    const { data: allImages } = await supabase
+      .from("product_images")
+      .select("*")
+      .in("product_id", productIds)
+      .order("sort_order");
+    if (allImages) {
+      const imagesByProduct = new Map<number, ProductImage[]>();
+      for (const img of allImages) {
+        const list = imagesByProduct.get(img.product_id) ?? [];
+        list.push({
+          id: img.id,
+          url: img.url,
+          alt: img.alt,
+          sort_order: img.sort_order,
+          is_primary: img.is_primary,
+        });
+        imagesByProduct.set(img.product_id, list);
+      }
+      for (const product of products) {
+        product.images = imagesByProduct.get(product.id) ?? [];
+      }
+    }
+  }
+  return products;
 }
 
 export async function getProductBySlug(
@@ -38,7 +65,24 @@ export async function getProductBySlug(
     .select("*")
     .eq("slug", slug)
     .single();
-  return data ? mapProduct(data) : undefined;
+  if (!data) return undefined;
+  const product = mapProduct(data);
+  // Fetch product images
+  const { data: images } = await supabase
+    .from("product_images")
+    .select("*")
+    .eq("product_id", product.id)
+    .order("sort_order");
+  if (images && images.length > 0) {
+    product.images = images.map((img: Record<string, unknown>) => ({
+      id: img.id as number,
+      url: img.url as string,
+      alt: img.alt as string | null,
+      sort_order: img.sort_order as number,
+      is_primary: img.is_primary as boolean,
+    }));
+  }
+  return product;
 }
 
 export async function getFeaturedProducts(): Promise<Product[]> {
