@@ -11,6 +11,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 
+// Revalidate every 60 seconds — ensures revalidatePath() from admin
+// actions actually busts the edge cache for these pages.
+export const revalidate = 60;
+
 export async function generateStaticParams() {
   const products = await getProducts();
   return products.map((product) => ({

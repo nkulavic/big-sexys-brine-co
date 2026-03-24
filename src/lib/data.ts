@@ -1,4 +1,5 @@
 import { createClient as createSupabaseClient } from "@supabase/supabase-js";
+import { unstable_cache } from "next/cache";
 import type { Product, ProductImage, Event, ClassInfo, Testimonial } from "@/types";
 
 // Fallback to JSON files if Supabase is not configured
@@ -15,7 +16,7 @@ function getSupabase() {
 }
 
 // Products
-export async function getProducts(): Promise<Product[]> {
+const _getProductsUncached = async (): Promise<Product[]> => {
   if (!useSupabase) {
     const data = (await import("@/content/products.json")).default;
     return data as Product[];
@@ -50,11 +51,17 @@ export async function getProducts(): Promise<Product[]> {
     }
   }
   return products;
-}
+};
 
-export async function getProductBySlug(
+export const getProducts = unstable_cache(
+  _getProductsUncached,
+  ["products-all"],
+  { tags: ["products", "product-images"], revalidate: 60 }
+);
+
+const _getProductBySlugUncached = async (
   slug: string
-): Promise<Product | undefined> {
+): Promise<Product | undefined> => {
   if (!useSupabase) {
     const data = (await import("@/content/products.json")).default;
     return (data as Product[]).find((p) => p.slug === slug);
@@ -83,9 +90,18 @@ export async function getProductBySlug(
     }));
   }
   return product;
+};
+
+export async function getProductBySlug(slug: string): Promise<Product | undefined> {
+  const cachedFn = unstable_cache(
+    () => _getProductBySlugUncached(slug),
+    [`product-${slug}`],
+    { tags: ["products", "product-images"], revalidate: 60 }
+  );
+  return cachedFn();
 }
 
-export async function getFeaturedProducts(): Promise<Product[]> {
+const _getFeaturedProductsUncached = async (): Promise<Product[]> => {
   if (!useSupabase) {
     const data = (await import("@/content/products.json")).default;
     return (data as Product[]).filter((p) => p.featured);
@@ -97,26 +113,39 @@ export async function getFeaturedProducts(): Promise<Product[]> {
     .eq("featured", true)
     .order("sort_order");
   return (data ?? []).map(mapProduct);
-}
+};
+
+export const getFeaturedProducts = unstable_cache(
+  _getFeaturedProductsUncached,
+  ["products-featured"],
+  { tags: ["products"], revalidate: 60 }
+);
 
 export async function getProductsByCategory(
   category: string
 ): Promise<Product[]> {
   if (category === "All") return getProducts();
-  if (!useSupabase) {
-    const data = (await import("@/content/products.json")).default;
-    return (data as Product[]).filter((p) => p.category === category);
-  }
-  const supabase = getSupabase();
-  const { data } = await supabase
-    .from("products")
-    .select("*")
-    .eq("category", category)
-    .order("sort_order");
-  return (data ?? []).map(mapProduct);
+  const cachedFn = unstable_cache(
+    async () => {
+      if (!useSupabase) {
+        const data = (await import("@/content/products.json")).default;
+        return (data as Product[]).filter((p) => p.category === category);
+      }
+      const supabase = getSupabase();
+      const { data } = await supabase
+        .from("products")
+        .select("*")
+        .eq("category", category)
+        .order("sort_order");
+      return (data ?? []).map(mapProduct);
+    },
+    [`products-category-${category}`],
+    { tags: ["products"], revalidate: 60 }
+  );
+  return cachedFn();
 }
 
-export async function getProductCategories(): Promise<string[]> {
+const _getProductCategoriesUncached = async (): Promise<string[]> => {
   if (!useSupabase) {
     const products = await getProducts();
     const categories = new Set(products.map((p) => p.category));
@@ -128,37 +157,50 @@ export async function getProductCategories(): Promise<string[]> {
     .select("name")
     .order("sort_order");
   return ["All", ...(data ?? []).map((c: { name: string }) => c.name)];
-}
+};
+
+export const getProductCategories = unstable_cache(
+  _getProductCategoriesUncached,
+  ["product-categories"],
+  { tags: ["products"], revalidate: 60 }
+);
 
 export async function getProductsByCategories(
   categoryName: string
 ): Promise<Product[]> {
   if (categoryName === "All") return getProducts();
-  if (!useSupabase) {
-    const data = (await import("@/content/products.json")).default;
-    return (data as Product[]).filter((p) => p.category === categoryName);
-  }
-  const supabase = getSupabase();
-  // Get category id
-  const { data: cat } = await supabase
-    .from("categories")
-    .select("id")
-    .eq("name", categoryName)
-    .single();
-  if (!cat) return [];
-  // Get product ids in this category
-  const { data: pcs } = await supabase
-    .from("product_categories")
-    .select("product_id")
-    .eq("category_id", cat.id);
-  if (!pcs || pcs.length === 0) return [];
-  const productIds = pcs.map((pc: { product_id: number }) => pc.product_id);
-  const { data } = await supabase
-    .from("products")
-    .select("*")
-    .in("id", productIds)
-    .order("sort_order");
-  return (data ?? []).map(mapProduct);
+  const cachedFn = unstable_cache(
+    async () => {
+      if (!useSupabase) {
+        const data = (await import("@/content/products.json")).default;
+        return (data as Product[]).filter((p) => p.category === categoryName);
+      }
+      const supabase = getSupabase();
+      // Get category id
+      const { data: cat } = await supabase
+        .from("categories")
+        .select("id")
+        .eq("name", categoryName)
+        .single();
+      if (!cat) return [];
+      // Get product ids in this category
+      const { data: pcs } = await supabase
+        .from("product_categories")
+        .select("product_id")
+        .eq("category_id", cat.id);
+      if (!pcs || pcs.length === 0) return [];
+      const productIds = pcs.map((pc: { product_id: number }) => pc.product_id);
+      const { data } = await supabase
+        .from("products")
+        .select("*")
+        .in("id", productIds)
+        .order("sort_order");
+      return (data ?? []).map(mapProduct);
+    },
+    [`products-by-categories-${categoryName}`],
+    { tags: ["products"], revalidate: 60 }
+  );
+  return cachedFn();
 }
 
 // Events

@@ -3,6 +3,24 @@
 import { createClient } from "@/lib/supabase/server";
 import { requireAuthAction } from "@/lib/supabase/auth-guard";
 import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
+
+/**
+ * Revalidate all product-related pages and caches.
+ * Uses both revalidatePath (for route cache) and revalidateTag (for data cache).
+ */
+function revalidateProducts(slug?: string) {
+  // Revalidate the full route tree for products
+  revalidatePath("/", "layout");
+  revalidatePath("/products", "layout");
+  revalidatePath("/admin/products", "layout");
+  if (slug) {
+    revalidatePath(`/products/${slug}`, "page");
+  }
+  // Revalidate data cache tags
+  revalidateTag("products", { expire: 0 });
+  revalidateTag("product-images", { expire: 0 });
+}
 
 // Categories
 export async function createCategory(data: { name: string }) {
@@ -24,8 +42,7 @@ export async function createCategory(data: { name: string }) {
     .insert({ name: data.name, slug, sort_order });
   if (error) throw new Error(error.message);
   revalidatePath("/admin/categories");
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
+  revalidateProducts();
 }
 
 export async function updateCategory(
@@ -44,8 +61,7 @@ export async function updateCategory(
     .eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/categories");
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
+  revalidateProducts();
 }
 
 export async function deleteCategory(id: number) {
@@ -54,8 +70,7 @@ export async function deleteCategory(id: number) {
   const { error } = await supabase.from("categories").delete().eq("id", id);
   if (error) throw new Error(error.message);
   revalidatePath("/admin/categories");
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
+  revalidateProducts();
 }
 
 export async function updateCategoryOrder(
@@ -71,7 +86,7 @@ export async function updateCategoryOrder(
     if (error) throw new Error(error.message);
   }
   revalidatePath("/admin/categories");
-  revalidatePath("/products");
+  revalidateProducts();
 }
 
 // Products
@@ -128,9 +143,7 @@ export async function createProduct(data: {
     if (imgError) throw new Error(imgError.message);
   }
 
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
-  revalidatePath("/");
+  revalidateProducts(data.slug);
 }
 
 export async function updateProduct(
@@ -189,10 +202,7 @@ export async function updateProduct(
     }
   }
 
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
-  revalidatePath(`/products/${data.slug}`);
-  revalidatePath("/");
+  revalidateProducts(data.slug);
 }
 
 export async function deleteProduct(id: number) {
@@ -201,9 +211,7 @@ export async function deleteProduct(id: number) {
   // product_images will cascade delete due to ON DELETE CASCADE
   const { error } = await supabase.from("products").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
-  revalidatePath("/");
+  revalidateProducts();
 }
 
 export async function updateProductOrder(items: { id: number; sort_order: number }[]) {
@@ -216,9 +224,7 @@ export async function updateProductOrder(items: { id: number; sort_order: number
       .eq("id", item.id);
     if (error) throw new Error(error.message);
   }
-  revalidatePath("/admin/products");
-  revalidatePath("/products");
-  revalidatePath("/");
+  revalidateProducts();
 }
 
 // Events
