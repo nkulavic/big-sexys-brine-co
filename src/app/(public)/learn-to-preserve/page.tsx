@@ -3,6 +3,7 @@ import { getClassInfo } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Check, BookOpen, Clock, Users, DollarSign } from "lucide-react";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import Link from "next/link";
 import { CourseJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
@@ -34,9 +35,9 @@ export default async function LearnToPreservePage() {
           <h1 className="font-display text-4xl sm:text-5xl md:text-6xl font-bold text-brand-cream">
             {classInfo.title}
           </h1>
-          <p className="mt-4 text-brand-cream/60 text-lg leading-relaxed">
-            {classInfo.description}
-          </p>
+          <div className="mt-4">
+            <RichTextContent html={classInfo.description} className="prose-p:text-brand-cream/60 prose-p:text-lg" />
+          </div>
         </div>
 
         {/* Key Info */}

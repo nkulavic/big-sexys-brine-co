@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { SortableFormList } from "@/components/admin/sortable-form-list";
 import { updateClassInfo } from "@/app/admin/actions";
@@ -118,13 +118,11 @@ export function ClassForm({ classInfo }: ClassFormProps) {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="description">Description</Label>
-            <Textarea
-              id="description"
+            <Label>Description</Label>
+            <RichTextEditor
               value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              rows={4}
-              required
+              onChange={setDescription}
+              placeholder="Describe the class..."
             />
           </div>
         </CardContent>

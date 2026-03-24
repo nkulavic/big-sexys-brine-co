@@ -3,6 +3,7 @@ import { getUpcomingEvents, getPastEvents } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Calendar, MapPin, Clock, Repeat } from "lucide-react";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import Link from "next/link";
 import { EventJsonLd } from "@/components/seo/JsonLd";
 import type { Metadata } from "next";
@@ -154,7 +155,7 @@ export default async function EventsPage() {
                         )}
                       </div>
                       {event.description && (
-                        <p className="text-brand-cream/60">{event.description}</p>
+                        <RichTextContent html={event.description} className="prose-p:text-brand-cream/60" />
                       )}
                       <div className="flex flex-wrap gap-4 text-sm text-brand-cream/50">
                         <span className="flex items-center gap-1">

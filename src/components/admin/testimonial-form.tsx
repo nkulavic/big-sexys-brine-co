@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { createTestimonial, updateTestimonial } from "@/app/admin/actions";
 import { toast } from "sonner";
@@ -63,13 +63,12 @@ export function TestimonialForm({ testimonial }: TestimonialFormProps) {
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="space-y-2">
-            <Label htmlFor="quote">Quote</Label>
-            <Textarea
-              id="quote"
+            <Label>Quote</Label>
+            <RichTextEditor
               value={quote}
-              onChange={(e) => setQuote(e.target.value)}
-              rows={4}
-              required
+              onChange={setQuote}
+              placeholder="Enter the testimonial quote..."
+              minimal
             />
           </div>
 

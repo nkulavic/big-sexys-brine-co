@@ -5,6 +5,7 @@ import { ProductCard } from "@/components/products/ProductCard";
 import { getFeaturedProducts, getUpcomingEvents, getTestimonials } from "@/lib/data";
 import { Calendar, MapPin, ArrowRight, Quote, Instagram } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 
 export const revalidate = 60;
 
@@ -160,9 +161,9 @@ export default async function HomePage() {
                 className="bg-card border border-brand-brown/20 rounded-xl p-6 space-y-4"
               >
                 <Quote size={24} className="text-brand-orange/40" />
-                <p className="text-brand-cream/80 leading-relaxed italic">
-                  &ldquo;{t.quote}&rdquo;
-                </p>
+                <div className="text-brand-cream/80 leading-relaxed italic">
+                  <RichTextContent html={t.quote} className="prose-p:text-brand-cream/80 prose-p:italic" />
+                </div>
                 <div className="flex items-center justify-between">
                   <p className="text-sm font-semibold text-brand-cream">{t.author}</p>
                   {t.product && (

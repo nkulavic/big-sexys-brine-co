@@ -5,6 +5,7 @@ import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { ProductJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ProductImageCarousel } from "@/components/products/ProductImageCarousel";
+import { RichTextContent } from "@/components/ui/rich-text-content";
 import { ArrowLeft, ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -112,9 +113,7 @@ export default async function ProductDetailPage({
               <h2 className="font-display text-xl font-semibold text-brand-cream mb-3">
                 The Lowdown
               </h2>
-              <p className="text-brand-cream/70 leading-relaxed">
-                {product.description}
-              </p>
+              <RichTextContent html={product.description} />
             </div>
 
             <div>
