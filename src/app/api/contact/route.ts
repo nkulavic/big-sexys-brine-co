@@ -23,17 +23,29 @@ export async function POST(request: NextRequest) {
     const { name, email, subject, message } = result.data;
 
     if (process.env.RESEND_API_KEY) {
-      const { Resend } = await import("resend");
-      const resend = new Resend(process.env.RESEND_API_KEY);
+      try {
+        const { Resend } = await import("resend");
+        const resend = new Resend(process.env.RESEND_API_KEY);
 
-      await resend.emails.send({
-        from: "Big Sexy's Brine Co. <noreply@bigsexysbrine.co>",
-        to: process.env.CONTACT_EMAIL || "bigsexysbrineco@gmail.com",
-        cc: [email],
-        subject: `[Website] ${subject} - from ${name}`,
-        text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
-        replyTo: email,
-      });
+        const toEmail = process.env.CONTACT_EMAIL || "bigsexysbrineco@gmail.com";
+        console.log(`Sending contact form email to: ${toEmail}`);
+
+        const emailResult = await resend.emails.send({
+          from: "Big Sexy's Brine Co. <noreply@bigsexysbrine.co>",
+          to: toEmail,
+          subject: `[Website] ${subject} - from ${name}`,
+          text: `Name: ${name}\nEmail: ${email}\nSubject: ${subject}\n\nMessage:\n${message}`,
+          replyTo: email,
+        });
+
+        console.log("Resend contact email result:", JSON.stringify(emailResult));
+      } catch (emailError) {
+        console.error("Failed to send contact email via Resend:", emailError);
+        return NextResponse.json(
+          { error: "Failed to send message" },
+          { status: 500 }
+        );
+      }
     } else {
       console.log("Contact form submission (no RESEND_API_KEY):", { name, email, subject, message });
     }
