@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     description: "Small-batch artisan preserved foods. Brined to Perfection.",
   },
   manifest: "/manifest.json",
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://bigsexysbrine.co"),
+  metadataBase: new URL((process.env.NEXT_PUBLIC_SITE_URL || "https://bigsexysbrine.co").trim()),
 };
 
 export default function RootLayout({

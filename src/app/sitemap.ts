@@ -1,15 +1,16 @@
 import type { MetadataRoute } from "next";
 import { getProducts } from "@/lib/data";
 
-const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://bigsexysbrine.co";
+const SITE_URL = (
+  process.env.NEXT_PUBLIC_SITE_URL || "https://bigsexysbrine.co"
+).trim();
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const products = await getProducts();
 
   const staticRoutes: MetadataRoute.Sitemap = [
     {
-      url: SITE_URL,
+      url: `${SITE_URL}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
       priority: 1.0,
