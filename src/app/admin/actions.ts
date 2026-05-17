@@ -158,9 +158,17 @@ export async function createProduct(data: {
     productData.image_url = primary.url;
   }
 
+  const { data: maxOrder } = await supabase
+    .from("products")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .single();
+  const sort_order = (maxOrder?.sort_order ?? -1) + 1;
+
   const { data: inserted, error } = await supabase
     .from("products")
-    .insert(productData)
+    .insert({ ...productData, sort_order })
     .select("id")
     .single();
   if (error) throw new Error(error.message);
@@ -349,7 +357,14 @@ export async function createTestimonial(data: {
 }) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { error } = await supabase.from("testimonials").insert(data);
+  const { data: maxOrder } = await supabase
+    .from("testimonials")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .single();
+  const sort_order = (maxOrder?.sort_order ?? -1) + 1;
+  const { error } = await supabase.from("testimonials").insert({ ...data, sort_order });
   if (error) throw new Error(error.message);
   revalidateTestimonials();
 }
