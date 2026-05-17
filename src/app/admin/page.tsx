@@ -21,13 +21,21 @@ export default async function AdminDashboardPage() {
     supabase.from("gallery_images").select("*", { count: "exact", head: true }),
   ]);
 
-  // Get upcoming events
-  const { data: upcomingEvents } = await supabase
+  // Get upcoming events — match public events page logic: include recurring
+  // events while their end_date is still in the future, even if their start
+  // date has passed. Sorted chronologically (closest first) for at-a-glance.
+  const { data: allEvents } = await supabase
     .from("events")
     .select("*")
-    .gte("date", new Date().toISOString().split("T")[0])
-    .order("date", { ascending: true })
-    .limit(5);
+    .order("date", { ascending: true });
+  const now = new Date();
+  const upcomingEvents = (allEvents ?? [])
+    .filter((e) => {
+      if (e.is_recurring && e.end_date) return new Date(e.end_date) >= now;
+      if (e.end_date) return new Date(e.end_date) >= now;
+      return new Date(e.date) >= now;
+    })
+    .slice(0, 5);
 
   // Get recent testimonials
   const { data: recentTestimonials } = await supabase

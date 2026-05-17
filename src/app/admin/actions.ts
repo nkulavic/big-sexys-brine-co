@@ -286,7 +286,14 @@ export async function createEvent(data: {
 }) {
   await requireAuthAction();
   const supabase = await createClient();
-  const { error } = await supabase.from("events").insert(data);
+  const { data: maxOrder } = await supabase
+    .from("events")
+    .select("sort_order")
+    .order("sort_order", { ascending: false })
+    .limit(1)
+    .single();
+  const sort_order = (maxOrder?.sort_order ?? -1) + 1;
+  const { error } = await supabase.from("events").insert({ ...data, sort_order });
   if (error) throw new Error(error.message);
   revalidateEvents();
 }
