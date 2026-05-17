@@ -3,6 +3,7 @@ import { requireAuth } from "@/lib/supabase/auth-guard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, CalendarDays, MessageSquareQuote, Images } from "lucide-react";
 import Link from "next/link";
+import { ClearCacheButton } from "@/components/admin/clear-cache-button";
 
 export default async function AdminDashboardPage() {
   await requireAuth();
@@ -20,13 +21,21 @@ export default async function AdminDashboardPage() {
     supabase.from("gallery_images").select("*", { count: "exact", head: true }),
   ]);
 
-  // Get upcoming events
-  const { data: upcomingEvents } = await supabase
+  // Get upcoming events — match public events page logic: include recurring
+  // events while their end_date is still in the future, even if their start
+  // date has passed. Sorted chronologically (closest first) for at-a-glance.
+  const { data: allEvents } = await supabase
     .from("events")
     .select("*")
-    .gte("date", new Date().toISOString().split("T")[0])
-    .order("date", { ascending: true })
-    .limit(5);
+    .order("date", { ascending: true });
+  const now = new Date();
+  const upcomingEvents = (allEvents ?? [])
+    .filter((e) => {
+      if (e.is_recurring && e.end_date) return new Date(e.end_date) >= now;
+      if (e.end_date) return new Date(e.end_date) >= now;
+      return new Date(e.date) >= now;
+    })
+    .slice(0, 5);
 
   // Get recent testimonials
   const { data: recentTestimonials } = await supabase
@@ -68,11 +77,14 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl font-bold">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Welcome to Big Sexy&apos;s admin panel
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="font-display text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">
+            Welcome to Big Sexy&apos;s admin panel
+          </p>
+        </div>
+        <ClearCacheButton variant="outline" size="sm" label="Clear Cache" />
       </div>
 
       {/* Stats Grid */}

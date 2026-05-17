@@ -204,7 +204,7 @@ export async function getProductsByCategories(
 }
 
 // Events
-export async function getEvents(): Promise<Event[]> {
+const _getEventsUncached = async (): Promise<Event[]> => {
   if (!useSupabase) {
     const data = (await import("@/content/events.json")).default;
     return (data as Event[]).sort(
@@ -217,7 +217,12 @@ export async function getEvents(): Promise<Event[]> {
     .select("*")
     .order("sort_order");
   return (data ?? []) as Event[];
-}
+};
+
+export const getEvents = unstable_cache(_getEventsUncached, ["events-all"], {
+  tags: ["events"],
+  revalidate: 60,
+});
 
 export async function getUpcomingEvents(): Promise<Event[]> {
   const events = await getEvents();
@@ -251,7 +256,7 @@ export async function getPastEvents(): Promise<Event[]> {
 }
 
 // Class Info
-export async function getClassInfo(): Promise<ClassInfo> {
+const _getClassInfoUncached = async (): Promise<ClassInfo> => {
   if (!useSupabase) {
     const data = (await import("@/content/class.json")).default;
     return data as ClassInfo;
@@ -275,10 +280,16 @@ export async function getClassInfo(): Promise<ClassInfo> {
     whatYouGet: data.what_you_get,
     maxStudents: data.max_students,
   };
-}
+};
+
+export const getClassInfo = unstable_cache(
+  _getClassInfoUncached,
+  ["class-info"],
+  { tags: ["class-info"], revalidate: 60 }
+);
 
 // Testimonials
-export async function getTestimonials(): Promise<Testimonial[]> {
+const _getTestimonialsUncached = async (): Promise<Testimonial[]> => {
   if (!useSupabase) {
     const data = (await import("@/content/testimonials.json")).default;
     return data as Testimonial[];
@@ -289,7 +300,13 @@ export async function getTestimonials(): Promise<Testimonial[]> {
     .select("*")
     .order("sort_order");
   return (data ?? []) as Testimonial[];
-}
+};
+
+export const getTestimonials = unstable_cache(
+  _getTestimonialsUncached,
+  ["testimonials-all"],
+  { tags: ["testimonials"], revalidate: 60 }
+);
 
 // Helper to map Supabase product row to Product type
 function mapProduct(row: Record<string, unknown>): Product {
