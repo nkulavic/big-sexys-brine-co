@@ -3,6 +3,7 @@ import { requireAuth } from "@/lib/supabase/auth-guard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Package, CalendarDays, MessageSquareQuote, Images } from "lucide-react";
 import Link from "next/link";
+import { ClearCacheButton } from "@/components/admin/clear-cache-button";
 
 export default async function AdminDashboardPage() {
   await requireAuth();
@@ -68,11 +69,14 @@ export default async function AdminDashboardPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="font-display text-2xl font-bold">Dashboard</h1>
-        <p className="text-sm text-muted-foreground">
-          Welcome to Big Sexy&apos;s admin panel
-        </p>
+      <div className="flex flex-wrap items-start justify-between gap-3">
+        <div>
+          <h1 className="font-display text-2xl font-bold">Dashboard</h1>
+          <p className="text-sm text-muted-foreground">
+            Welcome to Big Sexy&apos;s admin panel
+          </p>
+        </div>
+        <ClearCacheButton variant="outline" size="sm" label="Clear Cache" />
       </div>
 
       {/* Stats Grid */}

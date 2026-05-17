@@ -10,6 +10,7 @@ import {
   GraduationCap,
   Images,
   Tags,
+  RefreshCcw,
   LogOut,
   Menu,
   X,
@@ -27,6 +28,7 @@ const navItems = [
   { href: "/admin/testimonials", label: "Testimonials", icon: MessageSquareQuote },
   { href: "/admin/class", label: "Class Info", icon: GraduationCap },
   { href: "/admin/gallery", label: "Gallery", icon: Images },
+  { href: "/admin/cache", label: "Cache", icon: RefreshCcw },
 ];
 
 export function AdminSidebar() {

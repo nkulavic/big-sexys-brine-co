@@ -22,6 +22,50 @@ function revalidateProducts(slug?: string) {
   revalidateTag("product-images", { expire: 0 });
 }
 
+function revalidateEvents() {
+  revalidatePath("/admin/events", "layout");
+  revalidatePath("/events", "layout");
+  revalidatePath("/", "layout");
+  revalidateTag("events", { expire: 0 });
+}
+
+function revalidateTestimonials() {
+  revalidatePath("/admin/testimonials", "layout");
+  revalidatePath("/", "layout");
+  revalidateTag("testimonials", { expire: 0 });
+}
+
+function revalidateClassInfo() {
+  revalidatePath("/admin/class", "layout");
+  revalidatePath("/learn-to-preserve", "layout");
+  revalidateTag("class-info", { expire: 0 });
+}
+
+function revalidateGallery() {
+  revalidatePath("/admin/gallery", "layout");
+  revalidatePath("/gallery", "layout");
+  revalidateTag("gallery", { expire: 0 });
+}
+
+/**
+ * Manually flush every cached tag and revalidate every public + admin route.
+ * Use when content looks stale despite an admin save (CDN edge cache, browser
+ * cache, or a missed revalidation hook).
+ */
+export async function clearAllCache() {
+  await requireAuthAction();
+  // Data cache tags
+  revalidateTag("products", { expire: 0 });
+  revalidateTag("product-images", { expire: 0 });
+  revalidateTag("events", { expire: 0 });
+  revalidateTag("testimonials", { expire: 0 });
+  revalidateTag("class-info", { expire: 0 });
+  revalidateTag("gallery", { expire: 0 });
+  // Full route tree — nukes route cache for public + admin
+  revalidatePath("/", "layout");
+  revalidatePath("/admin", "layout");
+}
+
 // Categories
 export async function createCategory(data: { name: string }) {
   await requireAuthAction();
@@ -244,8 +288,7 @@ export async function createEvent(data: {
   const supabase = await createClient();
   const { error } = await supabase.from("events").insert(data);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/events");
-  revalidatePath("/events");
+  revalidateEvents();
 }
 
 export async function updateEvent(
@@ -267,8 +310,7 @@ export async function updateEvent(
   const supabase = await createClient();
   const { error } = await supabase.from("events").update(data).eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/events");
-  revalidatePath("/events");
+  revalidateEvents();
 }
 
 export async function deleteEvent(id: number) {
@@ -276,8 +318,7 @@ export async function deleteEvent(id: number) {
   const supabase = await createClient();
   const { error } = await supabase.from("events").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/events");
-  revalidatePath("/events");
+  revalidateEvents();
 }
 
 export async function updateEventOrder(items: { id: number; sort_order: number }[]) {
@@ -290,8 +331,7 @@ export async function updateEventOrder(items: { id: number; sort_order: number }
       .eq("id", item.id);
     if (error) throw new Error(error.message);
   }
-  revalidatePath("/admin/events");
-  revalidatePath("/events");
+  revalidateEvents();
 }
 
 // Testimonials
@@ -304,8 +344,7 @@ export async function createTestimonial(data: {
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").insert(data);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/testimonials");
-  revalidatePath("/");
+  revalidateTestimonials();
 }
 
 export async function updateTestimonial(
@@ -320,8 +359,7 @@ export async function updateTestimonial(
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").update(data).eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/testimonials");
-  revalidatePath("/");
+  revalidateTestimonials();
 }
 
 export async function deleteTestimonial(id: number) {
@@ -329,8 +367,7 @@ export async function deleteTestimonial(id: number) {
   const supabase = await createClient();
   const { error } = await supabase.from("testimonials").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/testimonials");
-  revalidatePath("/");
+  revalidateTestimonials();
 }
 
 export async function updateTestimonialOrder(items: { id: number; sort_order: number }[]) {
@@ -343,8 +380,7 @@ export async function updateTestimonialOrder(items: { id: number; sort_order: nu
       .eq("id", item.id);
     if (error) throw new Error(error.message);
   }
-  revalidatePath("/admin/testimonials");
-  revalidatePath("/");
+  revalidateTestimonials();
 }
 
 // Class Info
@@ -361,8 +397,7 @@ export async function updateClassInfo(data: {
   const supabase = await createClient();
   const { error } = await supabase.from("class_info").update(data).eq("id", 1);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/class");
-  revalidatePath("/learn-to-preserve");
+  revalidateClassInfo();
 }
 
 // Gallery
@@ -375,8 +410,7 @@ export async function createGalleryImage(data: {
   const supabase = await createClient();
   const { error } = await supabase.from("gallery_images").insert(data);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
+  revalidateGallery();
 }
 
 export async function updateGalleryOrder(items: { id: number; sort_order: number }[]) {
@@ -389,8 +423,7 @@ export async function updateGalleryOrder(items: { id: number; sort_order: number
       .eq("id", item.id);
     if (error) throw new Error(error.message);
   }
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
+  revalidateGallery();
 }
 
 export async function deleteGalleryImage(id: number) {
@@ -398,6 +431,5 @@ export async function deleteGalleryImage(id: number) {
   const supabase = await createClient();
   const { error } = await supabase.from("gallery_images").delete().eq("id", id);
   if (error) throw new Error(error.message);
-  revalidatePath("/admin/gallery");
-  revalidatePath("/gallery");
+  revalidateGallery();
 }
